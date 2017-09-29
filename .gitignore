@@ -17,3 +17,8 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore all config files.
+/config/cable.yml
+/config/database.yml
+/config/secrets.yml
