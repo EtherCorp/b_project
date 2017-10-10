@@ -43,16 +43,22 @@ class ScrapingController < ApplicationController
   end
 
   # Scrape of Weplay
-  def weplay_scrape
+  def weplay_scrape(url)
     require 'mechanize'
     agent = Mechanize.new
-    page = agent.get('http://www.weplay.cl/juegos/juegosps4.html')
+    page = agent.get(url)
     # Build the products array
     games = page.css('.products-grid')
     @games_array = []
-    games.each do |game|
-      name = game.css('.containerNombreYMarca').text
-      price = game.css('.price-box .price').text
+    i = 0
+    while games.css('.containerNombreYMarca')[i]
+      name = games.css('.item .product-name')[i].text
+      price = if games.css('.price-box')[i].css('.price')[1]
+                games.css('.price-box')[i].css('.price')[1].text
+              else
+                games.css('.price-box')[i].css('.price')[0].text
+              end
+      i += 1
       link = page.link_with(text: name)
       game_page = link.click
       availability = game_page.css('.disponibilidadStock span').text
@@ -60,5 +66,15 @@ class ScrapingController < ApplicationController
     end
     # Render the array through the view
     render template: 'scraping_test'
+  end
+
+  def weplay_ps4_scrape
+    url = 'http://www.weplay.cl/juegos/juegosps4.html'
+    weplay_scrape(url)
+  end
+
+  def weplay_xbone_scrape
+    url = '  http://www.weplay.cl/juegos/juegosxboxone.html'
+    weplay_scrape(url)
   end
 end
