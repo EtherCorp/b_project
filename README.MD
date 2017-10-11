@@ -8,7 +8,7 @@ rails new b_project --database=postgresql
 
 ## How to use
 
-Firstly, you need use .default files as templates, and make the .yml files. If you need to modify them, please click [here](http://guides.rubyonrails.org/configuring.html) for more information.
+Firstly, you need use .default files as templates, and make the config/\*.yml and .env files with them. If you need to modify them, please click [here](http://guides.rubyonrails.org/configuring.html) for more information.
 
 Next, you must create a new secret_key, with shell command:
 
