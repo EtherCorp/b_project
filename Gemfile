@@ -58,3 +58,5 @@ gem 'devise'
 
 # Env data
 gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
+
+gem 'grape'
