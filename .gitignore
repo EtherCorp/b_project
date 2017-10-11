@@ -22,3 +22,4 @@
 /config/cable.yml
 /config/database.yml
 /config/secrets.yml
+/.env
