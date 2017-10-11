@@ -10,21 +10,29 @@ class ScrapingController < ApplicationController
     attr_reader :price
     attr_reader :availability
   end
-  # Scrape of Zmart
-  def zmart_scrape(url)
+
+  # Get page from a url
+  def get_page(url)
     require 'mechanize'
     agent = Mechanize.new
-    page = agent.get(url)
-    # link = page.link_with(text: 'Ver más Juegos de Playstation 4')
-    # page = link.click
-    # Build the products array
+    agent.get(url)
+  end
+
+  # Get page of a particular game
+  def get_game_page(name, page)
+    link = page.link_with(text: name)
+    link.click
+  end
+
+  # Scrape of Zmart
+  def zmart_scrape(url)
+    page = get_page(url)
     games = page.css('.BoxProductoS2')
     @games_array = []
     games.each do |game|
       name = game.css('.BoxProductoS2_Descripcion').text
       price = game.css('.BoxProductoS2_Precios').css('.BoxProductoS2_Precio').text
-      link = page.link_with(text: name)
-      game_page = link.click
+      game_page = get_game_page(name, page)
       availability = game_page.css('#ficha_producto_int').css('.txTituloRef')[0].text.split(' ')[1]
       @games_array << Game.new(name, price, availability)
     end
@@ -42,25 +50,28 @@ class ScrapingController < ApplicationController
     zmart_scrape(url)
   end
 
+  # Get the price of the games of weplay
+  def get_price_weplay(games, i)
+    price = games.css('.price-box')[i].css('.price')[1]
+    if price
+      price.text
+    else
+      games.css('.price-box')[i].css('.price')[0].text
+    end
+  end
+
   # Scrape of Weplay
   def weplay_scrape(url)
-    require 'mechanize'
-    agent = Mechanize.new
-    page = agent.get(url)
+    page = get_page(url)
     # Build the products array
     games = page.css('.products-grid')
     @games_array = []
     i = 0
     while games.css('.containerNombreYMarca')[i]
       name = games.css('.item .product-name')[i].text
-      price = if games.css('.price-box')[i].css('.price')[1]
-                games.css('.price-box')[i].css('.price')[1].text
-              else
-                games.css('.price-box')[i].css('.price')[0].text
-              end
+      price = get_price_weplay(games, i)
       i += 1
-      link = page.link_with(text: name)
-      game_page = link.click
+      game_page = get_game_page(name, page)
       availability = game_page.css('.disponibilidadStock span').text
       @games_array << Game.new(name, price, availability)
     end
