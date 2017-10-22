@@ -10,26 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022042430) do
+ActiveRecord::Schema.define(version: 20171022194552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string "name", limit: 20
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "developers", force: :cascade do |t|
-    t.string "name", limit: 50
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|
     t.bigint "developer_id"
-    t.string "name", limit: 30
+    t.string "name"
     t.date "release_date"
     t.text "description"
     t.datetime "created_at", null: false
@@ -38,9 +38,22 @@ ActiveRecord::Schema.define(version: 20171022042430) do
   end
 
   create_table "keywords", force: :cascade do |t|
-    t.string "name", limit: 50
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "platforms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.bigint "plataform_id"
+    t.string "name"
+    t.text "aditional_details"
+    t.index ["plataform_id"], name: "index_products_on_plataform_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -72,5 +85,4 @@ ActiveRecord::Schema.define(version: 20171022042430) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "games", "developers"
 end

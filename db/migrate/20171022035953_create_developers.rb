@@ -1,8 +1,7 @@
 class CreateDevelopers < ActiveRecord::Migration[5.1]
   def change
     create_table :developers do |t|
-      t.string :name, limit: 50
-
+      t.string :name
       t.timestamps
     end
   end
