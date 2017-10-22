@@ -10,12 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022035953) do
+ActiveRecord::Schema.define(version: 20171022042430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name", limit: 20
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "developers", force: :cascade do |t|
+    t.string "name", limit: 50
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.bigint "developer_id"
+    t.string "name", limit: 30
+    t.date "release_date"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["developer_id"], name: "index_games_on_developer_id"
+  end
+
+  create_table "keywords", force: :cascade do |t|
     t.string "name", limit: 50
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,4 +72,5 @@ ActiveRecord::Schema.define(version: 20171022035953) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "games", "developers"
 end
