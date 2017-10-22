@@ -4,6 +4,7 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.references :plataform
       t.string :name
       t.text :aditional_details
+      t.timestamps
     end
   end
 end
