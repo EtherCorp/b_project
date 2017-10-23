@@ -64,16 +64,30 @@ class ScrapingController < ApplicationController
   def weplay_scrape(url)
     page = get_page(url)
     # Build the products array
-    games = page.css('.products-grid')
     @games_array = []
-    i = 0
-    while games.css('.containerNombreYMarca')[i]
-      name = games.css('.item .product-name')[i].text
-      price = get_price_weplay(games, i)
-      i += 1
-      game_page = get_game_page(name, page)
-      availability = game_page.css('.disponibilidadStock span').text
-      @games_array << Game.new(name, price, availability)
+    aux = url
+    bandera = 0
+    while bandera >= 0
+      games = page.css('.products-grid')
+      i = 0
+      while games.css('.containerNombreYMarca')[i]
+        name = games.css('.item .product-name')[i].text
+        price = get_price_weplay(games, i)
+        i += 1
+        game_page = get_game_page(name, page)
+        availability = game_page.css('.disponibilidadStock span').text
+        @games_array << Game.new(name, price, availability)
+      end
+      aux = page.link_with(class: 'next i-next').href
+      link = page.link_with(class: 'next i-next')
+      page = link.click
+      if aux == page.link_with(class: 'next i-next').href
+        if bandera == 1
+          bandera = -1
+        else
+          bandera = 1
+        end
+      end
     end
     # Render the array through the view
     render template: 'scraping_test'
