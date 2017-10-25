@@ -88,4 +88,21 @@ class ScrapingController < ApplicationController
     url = '  http://www.weplay.cl/juegos/juegosxboxone.html'
     weplay_scrape(url)
   end
+  def pingZmart
+    require 'timeout'
+    require 'socket'
+
+    begin
+      Timeout.timeout(5) do 
+        @s = TCPSocket.new('216.167.193.162', 'echo')
+        @s.close
+        return true
+      end
+    rescue Errno::ECONNREFUSED 
+      return true
+    rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH
+      return false
+    end
+  end
+  helper_method :pingZmart
 end

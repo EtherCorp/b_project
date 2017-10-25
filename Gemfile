@@ -60,3 +60,5 @@ gem 'devise_token_auth'
 
 # Env data
 gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
+#A collection of classes that provide different ways to ping computers.
+gem 'net-ping', '1.7.6'
