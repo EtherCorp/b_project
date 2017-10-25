@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  aditional_details: MyText
+  plataform: one
+
+two:
+  name: MyString
+  aditional_details: MyText
+  plataform: two
