@@ -22,6 +22,12 @@ Then, create database with command:
 rake db:create
 ```
 
+And then, execute migrations (if it is required):
+
+```shell
+rake db:migrate
+```
+
 Finally, test the project with:
 
 ```shell

@@ -55,6 +55,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Devise for users management
 gem 'devise'
+gem 'omniauth'
+gem 'devise_token_auth'
 
 # Env data
 gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
