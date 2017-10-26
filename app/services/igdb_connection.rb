@@ -20,7 +20,7 @@ class IGDBConnection
         'Accept' => 'application/json'
       }
     )
-    {code: response.code, message: response.body}
+    {code: response.code, body: response.body}
   end
 
   def esrb_rating

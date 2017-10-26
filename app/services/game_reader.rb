@@ -4,38 +4,35 @@ class GameReader
     @total_data = {
       keywords: {}
     }
-    @pagination = {}
+    @pagination_data = {}
     @connection = IGDBConnection.new
   end
 
   # time limit = 3 minutes
   def get_data_request(iterations = 1)
-    @pagination[:next_page_url] = '/games/' # first time
+    @pagination_data[:next_page_url] = '/games/' # first time
     iterations.times do |i|
       game_request
-      return @total_games if pagination[:pages] >= i
+      return @total_games if pagination_data[:pages] >= i
     end
     @total_games
   end
 
-  def set_options(platform_id)
+  def set_options(options)
     @options = {
       fields: 'name,keywords,developers,publishers',
       limit: 50,
       scroll: 1,
-      'filter[platforms][eq]' => platform_id,
-      'filter[updated_at][gt]' => (DateTime.now - 365).strftime('%s')
+      'filter[platforms][eq]' => options[:platform_id],
+      'filter[updated_at][gt]' => (DateTime.now - 30).strftime('%s')
     }
-    options.each_key do |key|
-      @options[key] = options[key]
-    end
   end
 
   private # private functions
 
   def game_request
-    game_response = @connection.get_data @pagination[:next_page_url], @options
-    pagination = get_pagination_data game_response
+    game_response = @connection.get_data @pagination_data[:next_page_url], @options
+    pagination_data = get_pagination_data game_response
     game_response.each do |game|
       add_data_to_game(game, 'keywords', 'name') if game.key? 'keywords'
       add_data_to_game(game, 'developers', 'name') if game.key? 'developers'
@@ -43,7 +40,7 @@ class GameReader
       add_data_to_game(game, 'genres', 'name') if game.key? 'genres'
     end
     @total_games += game_response
-    pagination
+    pagination_data
   end
 
   # adds generic data to game
@@ -60,7 +57,6 @@ class GameReader
   end
 
   def get_pagination_data(response)
-    puts response
     limit = @options[:limit]
     {
       count: response['X-Count'].to_i,
