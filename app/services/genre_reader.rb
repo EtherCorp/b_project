@@ -23,7 +23,6 @@ class GenreReader
 
   def genre_request
     genre_response = @connection.get_data @url, @options
-    puts genre_response
     @total_genres += genre_response[:body]
   end
 end

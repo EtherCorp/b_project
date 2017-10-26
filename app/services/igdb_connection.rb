@@ -2,21 +2,37 @@ require 'unirest'
 
 class IGDBConnection
   def initialize
-    @igdb_api_key = ENV['IGDB_API_KEY']
-    @request_url = ENV['IGDB_REQUEST_URL']
+    @request_url = 'https://api-2445582011268.apicast.io'
+    @api_keys = [
+      '6c75d0f210d175c332c2e92e09ed3b2b',
+      '2f53817fc459511a921fedcb288a040f',
+      '995fdf72f4833198f2710188f5903dcd',
+      '6bfb20184d99c32c7a5298f1b480a293',
+    ]
   end
 
-  def set_keys(api_key, request_url)
-    @igdb_api_key = api_key
-    @request_url = request_url
+  def set_key(api_key)
+    @api_keys += api_key
   end
 
   def get_data(request, params = nil)
+    response = nil
+    keys = @api_keys.shuffle
+    keys.each do |key|
+      response = get_response(request, params, key)
+      puts response
+      puts key
+      return response if response[:code] == 200
+    end
+    raise 'None API keys works'
+  end
+
+  def get_response(request, params, key)
     response = Unirest.get(
       @request_url + request,
       parameters: params,
       headers: {
-        'user-key' => @igdb_api_key,
+        'user-key' => key,
         'Accept' => 'application/json'
       }
     )
@@ -54,4 +70,5 @@ class IGDBConnection
       18 => 5
     }
   end
+  private :get_response
 end
