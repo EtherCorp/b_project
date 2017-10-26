@@ -6,7 +6,7 @@ class GenreReader
 
   # time limit = 3 minutes
   def get_data_request
-    @url = '/genres/' # first time
+    @url = '/genres/' 
     set_options
     genre_request
     @total_genres
@@ -23,7 +23,6 @@ class GenreReader
 
   def genre_request
     genre_response = @connection.get_data @url, @options
-    puts genre_response
     @total_genres += genre_response[:body]
   end
 end
