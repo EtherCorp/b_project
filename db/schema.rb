@@ -168,6 +168,8 @@ ActiveRecord::Schema.define(version: 20171022214817) do
     t.bigint "plataform_id"
     t.string "name"
     t.text "aditional_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["plataform_id"], name: "index_products_on_plataform_id"
   end
 
