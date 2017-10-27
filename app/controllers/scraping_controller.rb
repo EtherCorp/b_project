@@ -102,4 +102,29 @@ class ScrapingController < ApplicationController
     url = '  http://www.weplay.cl/juegos/juegosxboxone.html'
     weplay_scrape(url)
   end
+
+  def sniper_scrape(url)
+    page = get_page(url)
+    # Build the products array
+    @games_array = []
+    games = page.css('#producto')
+    games.each do |game|
+      name = game.css('#titulo').text
+      price = game.css('#datos #precio')[0].css('strong')[0].text
+      availability = 'Preguntar disponibilidad en tienda'
+      @games_array << Game.new(name, price, availability)
+    end
+    # Render the array through the view
+    render template: 'scraping_test'
+  end
+
+  def sniper_ps4_scrape
+    url = 'http://www.sniper.cl/index.php?id=VerSubCategoria&Cat=12&SubCat=36'
+    sniper_scrape(url)
+  end
+
+  def sniper_xbone_scrape
+    url = 'http://www.sniper.cl/index.php?id=VerSubCategoria&Cat=13&SubCat=39'
+    sniper_scrape(url)
+  end
 end
