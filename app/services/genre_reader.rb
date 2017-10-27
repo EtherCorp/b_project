@@ -6,7 +6,7 @@ class GenreReader
 
   # time limit = 3 minutes
   def get_data_request
-    @url = '/genres/' # first time
+    @url = '/genres/' 
     set_options
     genre_request
     @total_genres
