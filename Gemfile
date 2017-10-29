@@ -58,7 +58,9 @@ gem 'devise'
 gem 'omniauth'
 gem 'devise_token_auth'
 
+# Gem for external API communication
 gem 'unirest'
-
+gem 'faraday', '~> 0.13.1'
+gem 'faraday_middleware', '~> 0.10.1'
 # Env data
 gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]

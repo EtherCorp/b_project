@@ -1,42 +1,60 @@
-require 'unirest'
+require 'faraday'
+require 'faraday_middleware'
 
 class IGDBConnection
   def initialize
-    @request_url = 'https://api-2445582011268.apicast.io'
     @api_keys = [
       '6c75d0f210d175c332c2e92e09ed3b2b',
       '2f53817fc459511a921fedcb288a040f',
       '995fdf72f4833198f2710188f5903dcd',
       '6bfb20184d99c32c7a5298f1b480a293',
-    ]
+    ].shuffle!
+    @selected_key = 0
+    @connection = set_connection
+    change_key
   end
 
-  def set_key(api_key)
-    @api_keys += api_key
+  def set_connection
+    Faraday.new url: 'https://api-2445582011268.apicast.io' do |conn|
+      conn.headers['Accept'] = 'application/json'
+      conn.response :json, :content_type => /\bjson$/
+      conn.use :instrumentation
+      conn.adapter Faraday.default_adapter
+    end
+  end
+
+  def add_key(key)
+    @api_keys += key
+    @api_keys.shuffle!
+    change_key
+  end
+
+  def remove_key
+    @api_keys.delete_at(@selected_key)
+    # notify
+    puts "Key #{@selected_key} is not working\n"
+  end
+
+  def change_key(remove = false)
+    remove_key if remove
+    return false if @api_keys.size.zero?
+    @selected_key = Random.new.rand(0...@api_keys.size)
+    @connection.headers['user-key'] = @api_keys[@selected_key]
   end
 
   def get_data(request, params = nil)
-    response = nil
-    keys = @api_keys.shuffle
-    keys.each do |key|
-      response = get_response(request, params, key)
+    loop do
+      response = get_response(request, params)
       puts response
-      puts key
       return response if response[:code] == 200
+      change_key true if [401, 403].include?(response[:code])
+      raise 'None API keys are working' if @api_keys.empty?
     end
-    raise 'None API keys works'
   end
 
-  def get_response(request, params, key)
-    response = Unirest.get(
-      @request_url + request,
-      parameters: params,
-      headers: {
-        'user-key' => key,
-        'Accept' => 'application/json'
-      }
-    )
-    {code: response.code, body: response.body}
+  def get_response(request_url, params)
+    response = @connection.get request_url, params
+    {code: response.status, body: response.body}
   end
 
   def esrb_rating
