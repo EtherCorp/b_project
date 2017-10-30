@@ -1,61 +1,56 @@
 require 'faraday'
 require 'faraday_middleware'
 
+# Connects with IGDB API
 class IGDBConnection
+  # Class constructor
+  # Set classes and necessary data for connection
   def initialize
-    @api_keys = [
-      '6c75d0f210d175c332c2e92e09ed3b2b',
-      '2f53817fc459511a921fedcb288a040f',
-      '995fdf72f4833198f2710188f5903dcd',
-      '6bfb20184d99c32c7a5298f1b480a293',
-    ].shuffle!
-    @selected_key = 0
-    @connection = set_connection
-    change_key
+    @key_balancer = KeyBalancer.new
+    @connection = APIConnection.new(
+      'https://api-2445582011268.apicast.io',
+      'Accept' => 'application/json',
+      'user-key' => @key_balancer.key
+    )
+    @change_key_codes = [401, 403]
   end
 
-  def set_connection
-    Faraday.new url: 'https://api-2445582011268.apicast.io' do |conn|
-      conn.headers['Accept'] = 'application/json'
-      conn.response :json, :content_type => /\bjson$/
-      conn.use :instrumentation
-      conn.adapter Faraday.default_adapter
-    end
-  end
-
-  def add_key(key)
-    @api_keys += key
-    @api_keys.shuffle!
-    change_key
-  end
-
-  def remove_key
-    @api_keys.delete_at(@selected_key)
-    # notify
-    puts "Key #{@selected_key} is not working\n"
-  end
-
-  def change_key(remove = false)
-    remove_key if remove
-    return false if @api_keys.size.zero?
-    @selected_key = Random.new.rand(0...@api_keys.size)
-    @connection.headers['user-key'] = @api_keys[@selected_key]
-  end
-
+  # Get data requested
   def get_data(request, params = nil)
     loop do
-      response = get_response(request, params)
-      puts response
+      response = @connection.get_response(request, params)
       return response if response[:code] == 200
-      change_key true if [401, 403].include?(response[:code])
-      raise 'None API keys are working' if @api_keys.empty?
+      raise_error_if_required response
+      update_key_if_required response
     end
   end
 
-  def get_response(request_url, params)
-    response = @connection.get request_url, params
-    {code: response.status, body: response.body}
+  # Private function, raise an error with a prefixed format
+  def raise_error(response)
+    raise "Error #{response[:code]}: #{response[:body]}"
   end
+
+  # Private function, raise an error if necessary
+  def raise_error_if_required(response)
+    code = response[:code]
+    raise_error if @connection.code?(400, code) && !(@change_key_codes.include? code)
+    raise_error if @connection.code? 500, code
+  end
+
+  # Private function, update key if necessary
+  def update_key_if_required(response)
+    update_key if @change_key_codes.include? response[:code]
+    raise 'None API keys are working' unless @key_balancer.api_keys?
+  end
+
+  # Private function, modify header using a new key
+  def update_key
+    puts "Key #{@key_balancer.key} is not working\n"
+    @key_balancer.remove_and_change_key
+    @connection.update_headers('user-key' => @key_balancer.key)
+  end
+
+  # Useful IGDB API data #
 
   def esrb_rating
     {
@@ -88,5 +83,6 @@ class IGDBConnection
       18 => 5
     }
   end
-  private :get_response
+
+  private :raise_error, :raise_error_if_required, :update_key_if_required, :update_key
 end
