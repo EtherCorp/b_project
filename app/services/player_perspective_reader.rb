@@ -7,7 +7,7 @@ class PlayerPerspectivesReader
 
   # time limit = 3 minutes
   def get_data_request
-    @url = '/player_perspectives/' 
+    @url = '/player_perspectives/'
     set_options
     player_perspective_request
     @total_player_perspectives

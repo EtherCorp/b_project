@@ -19,7 +19,7 @@ class IGDBConnection
   def get_data(request, params = nil)
     loop do
       response = @connection.get_response(request, params)
-      return response if response[:code] == 200
+      return response[:body] if response[:code] == 200
       raise_error_if_required response
       update_key_if_required response
     end
@@ -33,8 +33,8 @@ class IGDBConnection
   # Private function, raise an error if necessary
   def raise_error_if_required(response)
     code = response[:code]
-    raise_error if @connection.code?(400, code) && !(@change_key_codes.include? code)
-    raise_error if @connection.code? 500, code
+    raise_error response if @connection.code?(400, code) && !(@change_key_codes.include? code)
+    raise_error response if @connection.code? 500, code
   end
 
   # Private function, update key if necessary
