@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101014700) do
+ActiveRecord::Schema.define(version: 20171102003401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20171101014700) do
   end
 
   create_table "clasifications_games", id: false, force: :cascade do |t|
-    t.bigint "game_id", null: false
     t.bigint "clasification_id", null: false
+    t.bigint "game_id", null: false
     t.index ["clasification_id"], name: "index_clasifications_games_on_clasification_id"
     t.index ["game_id"], name: "index_clasifications_games_on_game_id"
   end
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 20171101014700) do
   end
 
   create_table "developers_games", id: false, force: :cascade do |t|
-    t.bigint "game_id", null: false
     t.bigint "developer_id", null: false
+    t.bigint "game_id", null: false
     t.index ["developer_id"], name: "index_developers_games_on_developer_id"
     t.index ["game_id"], name: "index_developers_games_on_game_id"
   end
@@ -100,6 +100,14 @@ ActiveRecord::Schema.define(version: 20171101014700) do
     t.bigint "product_id", null: false
     t.index ["feature_id"], name: "index_features_products_on_feature_id"
     t.index ["product_id"], name: "index_features_products_on_product_id"
+  end
+
+  create_table "game_alt_names", force: :cascade do |t|
+    t.bigint "game_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_alt_names_on_game_id"
   end
 
   create_table "games", force: :cascade do |t|

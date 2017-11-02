@@ -5,5 +5,6 @@ class Game < ApplicationRecord
     has_many_and_belongs_to :clasifications
     has_many_and_belongs_to :genres
     has_many_and_belongs_to :keywords
+    has_many :game_alt_names
     belogs_to :publisher
 end
