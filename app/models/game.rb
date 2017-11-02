@@ -1,10 +1,10 @@
 class Game < ApplicationRecord
-    has_many_and_belongs_to :developers
-    has_many_and_belongs_to :products
-    has_many_and_belongs_to :platforms
-    has_many_and_belongs_to :clasifications
-    has_many_and_belongs_to :genres
-    has_many_and_belongs_to :keywords
+    has_and_belongs_to_many :developers
+    has_and_belongs_to_many :products
+    has_and_belongs_to_many :platforms
+    has_and_belongs_to_many :clasifications
+    has_and_belongs_to_many :genres
+    has_and_belongs_to_many :keywords
     has_many :game_alt_names
-    belogs_to :publisher
+    belongs_to :publisher
 end
