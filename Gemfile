@@ -54,12 +54,11 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Devise for users management
-gem 'devise'
-gem 'omniauth'
-gem 'devise_token_auth'
+gem 'devise', '~> 4.3.0'
+gem 'omniauth', '~> 1.6.1'
+gem 'devise_token_auth', '~> 0.1.42'
 
 # Gem for external API communication
-gem 'unirest'
 gem 'faraday', '~> 0.13.1'
 gem 'faraday_middleware', '~> 0.10.1'
 # Env data
