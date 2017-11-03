@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022214817) do
+ActiveRecord::Schema.define(version: 20171101173657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20171022214817) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 20
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -88,14 +88,14 @@ ActiveRecord::Schema.define(version: 20171022214817) do
   end
 
   create_table "developers", force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 50
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|
     t.bigint "developer_id"
-    t.string "name"
+    t.string "name", limit: 30
     t.date "release_date"
     t.text "description"
     t.datetime "created_at", null: false
@@ -121,8 +121,18 @@ ActiveRecord::Schema.define(version: 20171022214817) do
     t.index ["product_id"], name: "index_games_products_on_product_id"
   end
 
+  create_table "igdb_keys", force: :cascade do |t|
+    t.string "key"
+    t.datetime "last_used"
+    t.boolean "is_active"
+    t.string "owner_email"
+    t.string "key_class"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "keywords", force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 50
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -130,6 +140,12 @@ ActiveRecord::Schema.define(version: 20171022214817) do
   create_table "normatives", force: :cascade do |t|
     t.string "code"
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "plataforms", force: :cascade do |t|
+    t.string "name", limit: 50
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -166,8 +182,10 @@ ActiveRecord::Schema.define(version: 20171022214817) do
 
   create_table "products", force: :cascade do |t|
     t.bigint "plataform_id"
-    t.string "name"
+    t.string "name", limit: 80
     t.text "aditional_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["plataform_id"], name: "index_products_on_plataform_id"
   end
 
@@ -252,4 +270,6 @@ ActiveRecord::Schema.define(version: 20171022214817) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "games", "developers"
+  add_foreign_key "products", "plataforms"
 end
