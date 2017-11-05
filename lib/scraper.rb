@@ -1,4 +1,5 @@
 require 'mechanize'  
+require 'json'
 module Scraper
   class Game
     def initialize(name, price, availability)
@@ -33,9 +34,14 @@ module Scraper
       game_page = get_game_page(name, page)
       availability = game_page.css('#ficha_producto_int').css('.txTituloRef')[0].text.split(' ')[1]
       @games_array << Game.new(name, price, availability)
+      ##########################################################################################################
+      ##esto se debe guardar
+      my_hash = { name: name, price: price, availability: availability}
+      my_hash = JSON.generate(my_hash)
+      puts my_hash
     end
     # Render the array through the view
-    render template: 'scraping_test'
+    #render template: 'scraping_test'
   end
 
   def zmart_ps4_scrape
@@ -67,6 +73,11 @@ module Scraper
       i += 1
       game_page = get_game_page(name, page)
       availability = game_page.css('.disponibilidadStock span').text
+      ##########################################################################################################
+      ##esto se debe guardar
+      my_hash = { name: name, price: price, availability: availability}
+      my_hash = JSON.generate(my_hash)
+      puts my_hash
       @games_array << Game.new(name, price, availability)
     end
   end
@@ -89,7 +100,7 @@ module Scraper
              end
     end
     # Render the array through the view
-    render template: 'scraping_test'
+    #render template: 'scraping_test'
   end
 
   def weplay_ps4_scrape
@@ -112,10 +123,14 @@ module Scraper
       price = game.css('#datos #precio')[0].css('strong')[0].text
       availability = 'Preguntar disponibilidad en tienda'
       @games_array << Game.new(name, price, availability)
-      #puts name
+      ##########################################################################################################
+      ##esto se debe guardar
+      my_hash = { name: name, price: price, availability: availability}
+      my_hash = JSON.generate(my_hash)
+      puts my_hash
     end
     # Render the array through the view
-    render template: 'scraping_test'
+    #render template: 'scraping_test'
   end
 
   def sniper_ps4_scrape
@@ -129,4 +144,22 @@ module Scraper
   end
 
 end
+
+
+##clase prara probar los metodos del modulo Scraper
+class Test
+  include Scraper
+  def initialize
+    #los metodos comentados hacen todos los scraping, recomendable trabajar con unno a la vez
+    #para poder probarlos
+    #sniper_ps4_scrape
+    #sniper_xbone_scrape
+    #zmart_ps4_scrape
+    zmart_xbone_scrape
+    #weplay_ps4_scrape
+    #weplay_xbone_scrape
+  end
+end
+
+Test.new
 
