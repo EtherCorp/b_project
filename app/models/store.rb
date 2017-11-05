@@ -1,5 +1,5 @@
 class Store < ApplicationRecord
-    has_and_belongs_to_many :countries
-    has_many :store_products
-    has_many :evaluations
+  has_and_belongs_to_many :countries
+  has_many :store_products
+  has_many :evaluations
 end

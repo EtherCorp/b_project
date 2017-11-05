@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102003401) do
+ActiveRecord::Schema.define(version: 20171105020446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,12 @@ ActiveRecord::Schema.define(version: 20171102003401) do
     t.bigint "game_id", null: false
     t.index ["clasification_id"], name: "index_clasifications_games_on_clasification_id"
     t.index ["game_id"], name: "index_clasifications_games_on_game_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "countries", force: :cascade do |t|
@@ -64,19 +70,6 @@ ActiveRecord::Schema.define(version: 20171102003401) do
     t.string "symbol"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "developers", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "developers_games", id: false, force: :cascade do |t|
-    t.bigint "developer_id", null: false
-    t.bigint "game_id", null: false
-    t.index ["developer_id"], name: "index_developers_games_on_developer_id"
-    t.index ["game_id"], name: "index_developers_games_on_game_id"
   end
 
   create_table "evaluations", force: :cascade do |t|
@@ -111,12 +104,21 @@ ActiveRecord::Schema.define(version: 20171102003401) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.bigint "publisher_id"
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["publisher_id"], name: "index_games_on_publisher_id"
+  end
+
+  create_table "games_developers", force: :cascade do |t|
+    t.bigint "game_id"
+    t.bigint "company_id"
+    t.bigint "platform_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_games_developers_on_company_id"
+    t.index ["game_id"], name: "index_games_developers_on_game_id"
+    t.index ["platform_id"], name: "index_games_developers_on_platform_id"
   end
 
   create_table "games_genres", id: false, force: :cascade do |t|
@@ -133,18 +135,22 @@ ActiveRecord::Schema.define(version: 20171102003401) do
     t.index ["keyword_id"], name: "index_games_keywords_on_keyword_id"
   end
 
-  create_table "games_platforms", id: false, force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "platform_id", null: false
-    t.index ["game_id"], name: "index_games_platforms_on_game_id"
-    t.index ["platform_id"], name: "index_games_platforms_on_platform_id"
-  end
-
   create_table "games_products", id: false, force: :cascade do |t|
     t.bigint "game_id", null: false
     t.bigint "product_id", null: false
     t.index ["game_id"], name: "index_games_products_on_game_id"
     t.index ["product_id"], name: "index_games_products_on_product_id"
+  end
+
+  create_table "games_publishers", force: :cascade do |t|
+    t.bigint "game_id"
+    t.bigint "company_id"
+    t.bigint "platform_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_games_publishers_on_company_id"
+    t.index ["game_id"], name: "index_games_publishers_on_game_id"
+    t.index ["platform_id"], name: "index_games_publishers_on_platform_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -197,12 +203,6 @@ ActiveRecord::Schema.define(version: 20171102003401) do
     t.bigint "user_id", null: false
     t.index ["product_id"], name: "index_products_users_on_product_id"
     t.index ["user_id"], name: "index_products_users_on_user_id"
-  end
-
-  create_table "publishers", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|

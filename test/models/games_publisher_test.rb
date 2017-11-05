@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PlataformTest < ActiveSupport::TestCase
+class GamesPublisherTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
