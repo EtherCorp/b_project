@@ -1,5 +1,6 @@
 require 'mechanize'  
 require 'json'
+require 'activity_logger'
 module Scraper
   class Game
     def initialize(name, price, availability)
@@ -24,7 +25,7 @@ module Scraper
   end
 
   # Scrape of Zmart
-  def zmart_scrape(url)
+  def zmart_scrape(url,console)
     page = get_page(url)
     games = page.css('.BoxProductoS2')
     @games_array = []
@@ -36,9 +37,11 @@ module Scraper
       @games_array << Game.new(name, price, availability)
       ##########################################################################################################
       ##esto se debe guardar
-      my_hash = { name: name, price: price, availability: availability}
-      my_hash = JSON.generate(my_hash)
+      my_hash = {status: "Pending", site: "zmart", console: console, name: name, price: price, availability: availability}
+     # my_hash = JSON.generate(my_hash)
       puts my_hash
+      conn = ActivityLogger.new
+      conn.save_scrap_zmart(my_hash)
     end
     # Render the array through the view
     #render template: 'scraping_test'
@@ -46,12 +49,12 @@ module Scraper
 
   def zmart_ps4_scrape
     url = 'https://www.zmart.cl/JuegosPS4'
-    zmart_scrape(url)
+    zmart_scrape(url,"ps4")
   end
 
   def zmart_xbone_scrape
     url = 'https://www.zmart.cl/JuegosXBONE'
-    zmart_scrape(url)
+    zmart_scrape(url,"xbone")
   end
 
   # Get the price of the games of weplay
@@ -64,7 +67,7 @@ module Scraper
     end
   end
 
-  def get_weplay_games(page)
+  def get_weplay_games(page,console)
     i = 0
     games = page.css('.products-grid')
     while games.css('.containerNombreYMarca')[i]
@@ -75,21 +78,23 @@ module Scraper
       availability = game_page.css('.disponibilidadStock span').text
       ##########################################################################################################
       ##esto se debe guardar
-      my_hash = { name: name, price: price, availability: availability}
-      my_hash = JSON.generate(my_hash)
+      my_hash = {status: "Pending", site: "weplay", console: console ,name: name, price: price, availability: availability}
+      #my_hash = JSON.generate(my_hash)
       puts my_hash
+      conn = ActivityLogger.new
+      conn.save_scrap_weplay(my_hash)
       @games_array << Game.new(name, price, availability)
     end
   end
 
   # Scrape of Weplay
-  def weplay_scrape(url)
+  def weplay_scrape(url,console)
     page = get_page(url)
     # Build the products array
     @games_array = []
     flag = 0
     while flag >= 0
-      get_weplay_games(page)
+      get_weplay_games(page,console)
       aux = page.link_with(class: 'next i-next').href
       page = page.link_with(class: 'next i-next').click
       next unless aux == page.link_with(class: 'next i-next').href
@@ -105,15 +110,15 @@ module Scraper
 
   def weplay_ps4_scrape
     url = 'http://www.weplay.cl/juegos/juegosps4.html'
-    weplay_scrape(url)
+    weplay_scrape(url,"ps4")
   end
 
   def weplay_xbone_scrape
     url = '  http://www.weplay.cl/juegos/juegosxboxone.html'
-    weplay_scrape(url)
+    weplay_scrape(url,"xbone")
   end
 
-  def sniper_scrape(url)
+  def sniper_scrape(url,console)
     page = get_page(url)
     # Build the products array
     @games_array = []
@@ -125,9 +130,11 @@ module Scraper
       @games_array << Game.new(name, price, availability)
       ##########################################################################################################
       ##esto se debe guardar
-      my_hash = { name: name, price: price, availability: availability}
-      my_hash = JSON.generate(my_hash)
+      my_hash = {status: "Pending", site: "sniper", console: console, name: name, price: price, availability: availability}
+      #my_hash = JSON.generate(my_hash)
       puts my_hash
+      conn = ActivityLogger.new
+      conn.save_scrap_sniper(my_hash)
     end
     # Render the array through the view
     #render template: 'scraping_test'
@@ -135,12 +142,12 @@ module Scraper
 
   def sniper_ps4_scrape
     url = 'http://www.sniper.cl/index.php?id=VerSubCategoria&Cat=12&SubCat=36'
-    sniper_scrape(url)
+    sniper_scrape(url, "ps4")
   end
 
   def sniper_xbone_scrape
     url = 'http://www.sniper.cl/index.php?id=VerSubCategoria&Cat=13&SubCat=39'
-    sniper_scrape(url)
+    sniper_scrape(url,"xbone")
   end
 
 end
