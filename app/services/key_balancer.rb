@@ -52,5 +52,3 @@ class KeyBalancer
 
   private :set_keys
 end
-
-# Obtener el count directamente de la variable api_keys y no de la base de datos
