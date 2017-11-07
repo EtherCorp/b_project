@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105020446) do
+ActiveRecord::Schema.define(version: 20171107023815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(version: 20171105020446) do
   end
 
   create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "company_roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -103,22 +109,22 @@ ActiveRecord::Schema.define(version: 20171105020446) do
     t.index ["game_id"], name: "index_game_alt_names_on_game_id"
   end
 
+  create_table "game_asociations", force: :cascade do |t|
+    t.bigint "game_id"
+    t.bigint "product_id"
+    t.bigint "platform_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_asociations_on_game_id"
+    t.index ["platform_id"], name: "index_game_asociations_on_platform_id"
+    t.index ["product_id"], name: "index_game_asociations_on_product_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "games_developers", force: :cascade do |t|
-    t.bigint "game_id"
-    t.bigint "company_id"
-    t.bigint "platform_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_games_developers_on_company_id"
-    t.index ["game_id"], name: "index_games_developers_on_game_id"
-    t.index ["platform_id"], name: "index_games_developers_on_platform_id"
   end
 
   create_table "games_genres", id: false, force: :cascade do |t|
@@ -128,41 +134,21 @@ ActiveRecord::Schema.define(version: 20171105020446) do
     t.index ["genre_id"], name: "index_games_genres_on_genre_id"
   end
 
-  create_table "games_keywords", id: false, force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "keyword_id", null: false
-    t.index ["game_id"], name: "index_games_keywords_on_game_id"
-    t.index ["keyword_id"], name: "index_games_keywords_on_keyword_id"
-  end
-
-  create_table "games_products", id: false, force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "product_id", null: false
-    t.index ["game_id"], name: "index_games_products_on_game_id"
-    t.index ["product_id"], name: "index_games_products_on_product_id"
-  end
-
-  create_table "games_publishers", force: :cascade do |t|
-    t.bigint "game_id"
-    t.bigint "company_id"
-    t.bigint "platform_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_games_publishers_on_company_id"
-    t.index ["game_id"], name: "index_games_publishers_on_game_id"
-    t.index ["platform_id"], name: "index_games_publishers_on_platform_id"
-  end
-
   create_table "genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "keywords", force: :cascade do |t|
-    t.string "name"
+  create_table "involved_companies", force: :cascade do |t|
+    t.bigint "game_asociation_id"
+    t.bigint "company_id"
+    t.bigint "company_role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_involved_companies_on_company_id"
+    t.index ["company_role_id"], name: "index_involved_companies_on_company_role_id"
+    t.index ["game_asociation_id"], name: "index_involved_companies_on_game_asociation_id"
   end
 
   create_table "normatives", force: :cascade do |t|
@@ -192,10 +178,17 @@ ActiveRecord::Schema.define(version: 20171105020446) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.date "release_date"
     t.text "details"
+    t.date "release_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "products_tags", id: false, force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["product_id"], name: "index_products_tags_on_product_id"
+    t.index ["tag_id"], name: "index_products_tags_on_tag_id"
   end
 
   create_table "products_users", id: false, force: :cascade do |t|
@@ -225,6 +218,7 @@ ActiveRecord::Schema.define(version: 20171105020446) do
     t.datetime "last_successful_scrap_at"
     t.datetime "last_scrapping_attempt_at"
     t.boolean "stock"
+    t.boolean "enabled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_store_products_on_product_id"
@@ -232,9 +226,15 @@ ActiveRecord::Schema.define(version: 20171105020446) do
   end
 
   create_table "stores", force: :cascade do |t|
-    t.decimal "average_evaluation", precision: 10, scale: 2
     t.string "name"
     t.string "home_page"
+    t.decimal "average_evaluation", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 20171105020446) do
   create_table "user_logs", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "action_id"
-    t.string "details"
+    t.text "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["action_id"], name: "index_user_logs_on_action_id"

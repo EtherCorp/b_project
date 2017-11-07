@@ -7,6 +7,7 @@ class CreateStoreProducts < ActiveRecord::Migration[5.1]
       t.timestamp :last_successful_scrap_at
       t.timestamp :last_scrapping_attempt_at
       t.boolean :stock
+      t.boolean :enabled
       t.timestamps
     end
   end
