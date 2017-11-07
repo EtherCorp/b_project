@@ -63,5 +63,3 @@ gem 'faraday', '~> 0.13.1'
 gem 'faraday_middleware', '~> 0.10.1'
 # Env data
 gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
-# Redis Cache
-# gem 'redis', '~> 4.0.1'

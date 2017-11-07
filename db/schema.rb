@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20171101173657) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name", limit: 20
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -88,14 +88,14 @@ ActiveRecord::Schema.define(version: 20171101173657) do
   end
 
   create_table "developers", force: :cascade do |t|
-    t.string "name", limit: 50
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|
     t.bigint "developer_id"
-    t.string "name", limit: 30
+    t.string "name"
     t.date "release_date"
     t.text "description"
     t.datetime "created_at", null: false
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 20171101173657) do
   end
 
   create_table "keywords", force: :cascade do |t|
-    t.string "name", limit: 50
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -140,12 +140,6 @@ ActiveRecord::Schema.define(version: 20171101173657) do
   create_table "normatives", force: :cascade do |t|
     t.string "code"
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "plataforms", force: :cascade do |t|
-    t.string "name", limit: 50
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -182,7 +176,7 @@ ActiveRecord::Schema.define(version: 20171101173657) do
 
   create_table "products", force: :cascade do |t|
     t.bigint "plataform_id"
-    t.string "name", limit: 80
+    t.string "name"
     t.text "aditional_details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -270,6 +264,4 @@ ActiveRecord::Schema.define(version: 20171101173657) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "games", "developers"
-  add_foreign_key "products", "plataforms"
 end
