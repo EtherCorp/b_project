@@ -1,6 +1,7 @@
 require 'mechanize'  
 require 'json'
 require 'activity_logger'
+require_relative '../../b_project/app/workers/dispatcher_worker'
 module Scraper
   class Game
     def initialize(name, price, availability)
@@ -39,9 +40,11 @@ module Scraper
       ##esto se debe guardar
       my_hash = {status: "Pending", site: "zmart", console: console, name: name, price: price, availability: availability}
      # my_hash = JSON.generate(my_hash)
+     #llama al worker
+      DispatcherWorker.perform_async("zmart", my_hash)
       puts my_hash
-      conn = ActivityLogger.new
-      conn.save_scrap_zmart(my_hash)
+      #conn = ActivityLogger.new
+      #conn.save_scrap_zmart(my_hash)
     end
     # Render the array through the view
     #render template: 'scraping_test'
@@ -132,9 +135,11 @@ module Scraper
       ##esto se debe guardar
       my_hash = {status: "Pending", site: "sniper", console: console, name: name, price: price, availability: availability}
       #my_hash = JSON.generate(my_hash)
+      #llama al worker
+      DispatcherWorker.perform_async("sniper", my_hash)
       puts my_hash
-      conn = ActivityLogger.new
-      conn.save_scrap_sniper(my_hash)
+      #conn = ActivityLogger.new
+      #conn.save_scrap_sniper(my_hash)
     end
     # Render the array through the view
     #render template: 'scraping_test'
@@ -159,9 +164,9 @@ class Test
   def initialize
     #los metodos comentados hacen todos los scraping, recomendable trabajar con unno a la vez
     #para poder probarlos
-    #sniper_ps4_scrape
-    #sniper_xbone_scrape
-    #zmart_ps4_scrape
+    sniper_ps4_scrape
+    sniper_xbone_scrape
+    zmart_ps4_scrape
     zmart_xbone_scrape
     #weplay_ps4_scrape
     #weplay_xbone_scrape

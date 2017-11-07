@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 2.5'
 
 #Ruby driver for MongoDB http://api.mongodb.org/ruby
 gem 'mongo', '~> 2.4.3'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'mechanize', '~> 2.7.5'
@@ -62,3 +63,6 @@ gem 'devise_token_auth'
 
 # Env data
 gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
+# For use sidekiq how background task queue
+gem 'redis', '~> 4.0.1'
+gem 'sidekiq', '~> 5.0.5'
