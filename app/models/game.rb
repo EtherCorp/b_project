@@ -6,7 +6,7 @@ class Game < ApplicationRecord
 
   def self.create_with_params(params)
     a = Game.new
-    a.publisher_id = params[:publisher_id]
+    #a.publisher_id = params[:publisher_id]
     a.name = params[:name]
     a.description = params[:description]
     a.save

@@ -364,9 +364,44 @@ module V1
 			end
 		end
 
-	
 
+	resource :product_prices do
+		desc 'Get all product_prices'
+			get do 
+				present Product_price.all, with: Entities::Product_priceEntity
+			end
+		
+			post do
+				Product_price.create_with_params(params)
+			end
 
+			put do
+				Product_price.update_with_params(params)
+			end
+
+			delete do
+				Product_price.destroy_with_params(params)
+			end
+		end
+
+	resource :store_products do
+		desc 'Get all store_products'
+			get do 
+				present Store_product.all, with: Entities::Store_productEntity
+			end
+		
+			post do
+				Store_product.create_with_params(params)
+			end
+
+			put do
+				Store_product.update_with_params(params)
+			end
+
+			delete do
+				Store_product.destroy_with_params(params)
+			end
+		end
 
 	end
 
