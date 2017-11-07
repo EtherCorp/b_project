@@ -1,0 +1,2 @@
+class IgdbKey < ApplicationRecord
+end
