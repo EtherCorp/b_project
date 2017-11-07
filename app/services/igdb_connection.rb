@@ -2,7 +2,7 @@ require 'faraday'
 require 'faraday_middleware'
 
 # Connects with IGDB API
-class IGDBConnection
+class IgdbConnection
   # Class constructor
   # Set classes and necessary data for connection
   def initialize

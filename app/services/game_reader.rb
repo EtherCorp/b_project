@@ -10,20 +10,24 @@ class GameReader
 
   def init_params_data
     @params_data = {
-      'developers' => { query: 'companies', field: 'name' },
-      'publishers' => { query: 'companies', field: 'name' },
-      'keywords' => { query: 'keywords', field: 'name' },
-      'genres' => { query: 'genres', field: 'name' }
+      'developers' => { query: 'companies', fields: ['name'] },
+      'publishers' => { query: 'companies', fields: ['name'] },
+      'keywords' => { query: 'keywords', fields: ['name'] },
+      'genres' => { query: 'genres', fields: ['name'] },
+      'platforms' => { query: 'platforms', fields: ['name'] }
     }
+  end
+
+  def hash_params(table)
+    @params_data[table].merge table: table
   end
 
   def init_options
     platforms_option = request_platforms ['PlayStation 4', 'Xbox One']
-    return false if platforms_option.nil?
-
+    complex_fields = @params_data.keys.join(',')
     @options = {
       # scroll: 1,      # for pagination
-      fields: 'name,keywords,developers,publishers,platforms',
+      fields: "name,#{complex_fields}",
       limit: 10
     }
     add_filter_to_options 'updated_at', 'gt', (DateTime.now - 50).strftime('%s')
@@ -83,6 +87,7 @@ class GameReader
 
   # Adds generic data to game
   def add_data_to_game(game, list_name, query, field)
+    # Find games
     known_data = @total_data[list_name]
     to_register = game[list_name].reject { |id| known_data[id].nil? }
     list_ids = to_register.join(',')
@@ -92,16 +97,6 @@ class GameReader
     # Assign elems to total_data
     data.each { |elem| @total_data[list_name][elem['id'].to_i] = elem[field] }
     # append field (TODO)
-  end
-
-  # Return pagination data from response
-  def get_pagination_data(response)
-    return { count: @options[:limit], pages: 1 } unless @options.key? :scroll
-    {
-      count: response['X-Count'].to_i,
-      pages: (response['X-Count'].to_i / (@options[:limit])),
-      next_page_url: response['X-Next-page']
-    }
   end
 
   private :init_params_data, :init_options, :init_store_data
