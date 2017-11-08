@@ -1,105 +1,76 @@
-class GameReader
+class GameReader < IgdbReader
   def initialize
-    @total_games = []
-    @pagination_data = {}
-    @connection = IGDBConnection.new
-    init_params_data
-    init_options
-    init_store_data
+    super(Game)
+    create_readers
+    init_readers_data
+    init_game_reader_options
   end
 
-  def init_params_data
-    @params_data = {
-      'developers' => { query: 'companies', fields: ['name'] },
-      'publishers' => { query: 'companies', fields: ['name'] },
-      'keywords' => { query: 'keywords', fields: ['name'] },
-      'genres' => { query: 'genres', fields: ['name'] },
-      'platforms' => { query: 'platforms', fields: ['name'] }
+  # Create nested readers, using an internal mini-cache
+  def create_readers
+    @readers = {
+      'developers' => { reader: IgdbReader.new('Company'), rel: {} },
+      'publishers' => { reader: IgdbReader.new('Company'), rel: {} },
+    #  'keywords' => { reader: IgdbReader.new('Keyword'), rel: {} },
+    #  'genres' => { reader: IgdbReader.new('Genre'), rel: {} },
+    #  'platforms' => { reader: IgdbReader.new('Platform'), rel: {} }
     }
   end
 
-  def hash_params(table)
-    @params_data[table].merge table: table
+  # Initialize values and parameters from readers
+  def init_readers_data
+    @readers['developers'][:reader].add_fields('/companies/', ['name'])
+    @readers['publishers'][:reader].add_fields('/companies/', ['name'])
+    #@readers['keywords'][:reader].add_fields('/keywords/', ['name'])
+    #@readers['genres'][:reader].add_fields('/genres/', ['name'])
+    #@readers['platforms'][:reader].add_fields('/platforms/', ['name'])
   end
 
-  def init_options
-    platforms_option = request_platforms ['PlayStation 4', 'Xbox One']
-    complex_fields = @params_data.keys.join(',')
-    @options = {
-      # scroll: 1,      # for pagination
-      fields: "name,#{complex_fields}",
-      limit: 10
-    }
-    add_filter_to_options 'updated_at', 'gt', (DateTime.now - 50).strftime('%s')
-    add_filter_to_options 'release_dates.platform', 'any', platforms_option
+  # Initialize particular parameters from game
+  # Modifying this function, is possible change scope of this class
+  def init_game_reader_options
+    add_fields('/games/', ['name'] + @readers.keys)
+    add_filter 'release_dates.platform', 'any', '48,49'
+    # add_filter 'created_at', 'gt', (DateTime.now - 50).strftime('%s')
+    add_scroll_pagination
   end
 
-  def init_store_data
-    @total_data = {}
-    @params_data.each_key do |key|
-      @total_data[key] = {}
+  # Overrided function, for extend functionality of reading data
+  def process_step(url)
+    data = super(url)
+    @readers.each do |k, reader_str|
+      process_each_key(data, reader_str, k)
+      require_api_data(reader_str)
+      # store_all_to_db
+    end
+    data
+  end
+
+  # Internal function, process each key data
+  def process_each_key(data, reader_str, k)
+    return if data.nil?
+    data.body.each { |d| store_reader_ids(reader_str, d[k], d['id']) if d.key? k }
+  end
+
+  # Operate with ids of each reader associated
+  def store_reader_ids(reader, ids_obt, game_id)
+    ids_obt.each do |id|
+      reader[:rel][id] ||= []
+      reader[:rel][id] << game_id
     end
   end
 
-  def add_filter_to_options(field, condition, value)
-    @options["filter[#{field}][#{condition}]"] = value
-  end
-
-  # Returns games requested
-  def get_data_request(iterations = 1)
-    # note: time limit with pagination: 3 minutes
-    @pagination_data[:next_page_url] = '/games/' # first time
-    iterations.times do |i|
-      game_request
-      return @total_games if @pagination_data[:pages] >= i
-    end
-    @total_games
-  end
-
-  def request_platforms(platforms_name)
-    options = { fields: 'name' }
-    url = '/platforms/'
-    platforms_id = []
-    platforms_name.each do |p_name|
-      options[:search] = p_name
-      platforms_id << (@connection.get_data url, options)[0]['id']
-    end
-    return false if platforms_id.empty?
-    platforms_id.join(',')
-  end
-
-  # Make a request to external API
-  def game_request
-    response = @connection.get_data @pagination_data[:next_page_url], @options
-    @pagination_data = get_pagination_data response
-    response.each do |game|
-      process_response game
-    end
-    @total_games += response
-  end
-
-  # Process each data required of a game
-  def process_response(game)
-    @params_data.each do |l_name, v|
-      add_data_to_game game, l_name, v[:query], v[:field] if game.key? l_name
+  # Batch require, separated by 50 data only, in order of avoid pagination
+  # Could return less than 50 elements (if data was cached)
+  def require_api_data(reader_str)
+    reader_str[:rel].keys.each_slice(50) do |keys|
+      reader_str[:reader].process_by_id(keys)
+      # make_game_relations(reader_str, keys, data)
     end
   end
 
-  # Adds generic data to game
-  def add_data_to_game(game, list_name, query, field)
-    # Find games
-    known_data = @total_data[list_name]
-    to_register = game[list_name].reject { |id| known_data[id].nil? }
-    list_ids = to_register.join(',')
-    keys_option = { fields: field }
-    url_query = "/#{query}/#{list_ids}"
-    data = @connection.get_data(url_query, keys_option)
-    # Assign elems to total_data
-    data.each { |elem| @total_data[list_name][elem['id'].to_i] = elem[field] }
-    # append field (TODO)
+  # Get data from inner reader
+  def get_reader_data(table)
+    @readers['developers'][:reader].get_cache_data
   end
-
-  private :init_params_data, :init_options, :init_store_data
-  private :add_filter_to_options, :request_platforms, :game_request
-  private :process_response, :add_data_to_game, :get_pagination_data
 end

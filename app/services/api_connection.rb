@@ -8,18 +8,13 @@ class APIConnection
     @connection = Faraday.new url: url do |conn|
       update_headers_conn headers, conn
       conn.response :json, content_type: /\b#{response_type}$/
-      conn.use :instrumentation
       conn.adapter Faraday.default_adapter
     end
   end
 
   # Get response
   def get_response(request_url, params)
-    @response = @connection.get request_url, params
-    {
-      code: @response.status,
-      body: @response.body
-    }
+    @connection.get request_url, params
   end
 
   # Set headers to connection

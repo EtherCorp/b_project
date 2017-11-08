@@ -1,6 +1,3 @@
-require 'faraday'
-require 'faraday_middleware'
-
 # Connects with IGDB API
 class IgdbConnection
   # Class constructor
@@ -19,7 +16,10 @@ class IgdbConnection
   def get_data(request, params = nil)
     loop do
       response = @connection.get_response(request, params)
-      return response[:body] if response[:code] == 200
+      # Obtained data and return it
+      return response if response.status == 200
+      # Reached the end of the scroll.
+      return nil if response.status == 400
       raise_error_if_required response
       update_key_if_required response
     end
@@ -27,19 +27,20 @@ class IgdbConnection
 
   # Private function, raise an error with a prefixed format
   def raise_error(response)
-    raise "Error #{response[:code]}: #{response[:body]}"
+    raise "Error #{response.status}: #{response.body}"
   end
 
   # Private function, raise an error if necessary
   def raise_error_if_required(response)
-    code = response[:code]
-    raise_error response if @connection.code?(400, code) && !(@change_key_codes.include? code)
+    code = response.status
+    # raise_error response if @connection.code?(400, code) && !(@change_key_codes.include? code)
+    raise_error response unless (@change_key_codes.include? code)
     raise_error response if @connection.code? 500, code
   end
 
   # Private function, update key if necessary
   def update_key_if_required(response)
-    update_key if @change_key_codes.include? response[:code]
+    update_key if @change_key_codes.include? response.status
     raise 'None API keys are working' unless @key_balancer.api_keys?
   end
 
@@ -48,40 +49,6 @@ class IgdbConnection
     puts "Key #{@key_balancer.key} is not working\n"
     @key_balancer.remove_and_change_key
     @connection.update_headers('user-key' => @key_balancer.key)
-  end
-
-  # Useful IGDB API data #
-
-  def esrb_rating
-    {
-      'RP' => 1,
-      'EC' => 2,
-      'E' => 3,
-      'E10+' => 4,
-      'T' => 5,
-      'M' => 6,
-      'AO' => 7
-    }
-  end
-
-  def game_type
-    {
-      'Main game' => 0,
-      'DLC / Addon' => 1,
-      'Expansion' => 2,
-      'Bundle' => 3,
-      'Standalone expansion' => 4
-    }
-  end
-
-  def pegi_rating
-    {
-      3 => 1,
-      7 => 2,
-      12 => 3,
-      16 => 4,
-      18 => 5
-    }
   end
 
   private :raise_error, :raise_error_if_required, :update_key_if_required, :update_key
