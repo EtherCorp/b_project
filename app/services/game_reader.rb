@@ -11,9 +11,9 @@ class GameReader < IgdbReader
     @readers = {
       'developers' => { reader: IgdbReader.new('Company'), rel: {} },
       'publishers' => { reader: IgdbReader.new('Company'), rel: {} },
-    #  'keywords' => { reader: IgdbReader.new('Keyword'), rel: {} },
-    #  'genres' => { reader: IgdbReader.new('Genre'), rel: {} },
-    #  'platforms' => { reader: IgdbReader.new('Platform'), rel: {} }
+      'keywords' => { reader: IgdbReader.new('Keyword'), rel: {} },
+      'genres' => { reader: IgdbReader.new('Genre'), rel: {} },
+      'platforms' => { reader: IgdbReader.new('Platform'), rel: {} }
     }
   end
 
@@ -21,15 +21,15 @@ class GameReader < IgdbReader
   def init_readers_data
     @readers['developers'][:reader].add_fields('/companies/', ['name'])
     @readers['publishers'][:reader].add_fields('/companies/', ['name'])
-    #@readers['keywords'][:reader].add_fields('/keywords/', ['name'])
-    #@readers['genres'][:reader].add_fields('/genres/', ['name'])
-    #@readers['platforms'][:reader].add_fields('/platforms/', ['name'])
+    @readers['keywords'][:reader].add_fields('/keywords/', ['name'])
+    @readers['genres'][:reader].add_fields('/genres/', ['name'])
+    @readers['platforms'][:reader].add_fields('/platforms/', ['name'])
   end
 
   # Initialize particular parameters from game
   # Modifying this function, is possible change scope of this class
   def init_game_reader_options
-    add_fields('/games/', ['name'] + @readers.keys)
+    add_fields('/games/', ['name', 'alternative_names'] + @readers.keys)
     add_filter 'release_dates.platform', 'any', '48,49'
     # add_filter 'created_at', 'gt', (DateTime.now - 50).strftime('%s')
     add_scroll_pagination
@@ -72,5 +72,10 @@ class GameReader < IgdbReader
   # Get data from inner reader
   def get_reader_data(table)
     @readers['developers'][:reader].get_cache_data
+  end
+
+  # Get data from inner reader
+  def get_readers
+    @readers.map { |_, e| e[:reader] }
   end
 end

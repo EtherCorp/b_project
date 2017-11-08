@@ -1,4 +1,5 @@
 class IgdbReader
+  attr_reader :reader_name
   def initialize(model_class)
     @connection = IgdbConnection.new
     @cache = IgdbCache.new model_class
