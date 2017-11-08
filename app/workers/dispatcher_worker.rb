@@ -5,7 +5,9 @@ class DispatcherWorker
 
   def perform(site_name, my_hash)
     puts '---- Hello from DispatcherWorker ----'
+    sleep(5)
     case site_name
+    
     when "zmart"
     	conn = ActivityLogger.new
     	conn.save_scrap_zmart(my_hash)
@@ -14,10 +16,14 @@ class DispatcherWorker
     	conn = ActivityLogger.new
     	conn.save_scrap_sniper(my_hash)
     	puts "----saved sniper----"
-    end
+    
+    when "weplay"
+      conn = ActivityLogger.new
+      conn.save_scrap_weplay(my_hash)
+      puts "----saved weplay----"
+  end
 
     puts '----- end saved data mongo --------'
-    #Request::Patient.POST(normalized_json)
     puts 'TODO: Is saved data in postgre?'
     puts '-------------------------------------'
   end

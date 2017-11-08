@@ -1,6 +1,5 @@
 require 'mechanize'  
 require 'json'
-require 'activity_logger'
 require_relative '../../b_project/app/workers/dispatcher_worker'
 module Scraper
   class Game
@@ -82,10 +81,8 @@ module Scraper
       ##########################################################################################################
       ##esto se debe guardar
       my_hash = {status: "Pending", site: "weplay", console: console ,name: name, price: price, availability: availability}
-      #my_hash = JSON.generate(my_hash)
       puts my_hash
-      conn = ActivityLogger.new
-      conn.save_scrap_weplay(my_hash)
+      DispatcherWorker.perform_async("zmart", my_hash)      
       @games_array << Game.new(name, price, availability)
     end
   end
@@ -164,12 +161,12 @@ class Test
   def initialize
     #los metodos comentados hacen todos los scraping, recomendable trabajar con unno a la vez
     #para poder probarlos
-    sniper_ps4_scrape
-    sniper_xbone_scrape
-    zmart_ps4_scrape
-    zmart_xbone_scrape
-    #weplay_ps4_scrape
-    #weplay_xbone_scrape
+    #sniper_ps4_scrape
+    #sniper_xbone_scrape
+    #zmart_ps4_scrape
+    #zmart_xbone_scrape
+    weplay_ps4_scrape
+    weplay_xbone_scrape
   end
 end
 
