@@ -35,18 +35,13 @@ module Scraper
       game_page = get_game_page(name, page)
       availability = game_page.css('#ficha_producto_int').css('.txTituloRef')[0].text.split(' ')[1]
       @games_array << Game.new(name, price, availability)
-      ##########################################################################################################
-      ##esto se debe guardar
       my_hash = {status: "Pending", site: "zmart", console: console, name: name, price: price, availability: availability}
-     # my_hash = JSON.generate(my_hash)
-     #llama al worker
+     
       DispatcherWorker.perform_async("zmart", my_hash)
       puts my_hash
-      #conn = ActivityLogger.new
-      #conn.save_scrap_zmart(my_hash)
+     
     end
-    # Render the array through the view
-    #render template: 'scraping_test'
+    
   end
 
   def zmart_ps4_scrape
@@ -78,11 +73,8 @@ module Scraper
       i += 1
       game_page = get_game_page(name, page)
       availability = game_page.css('.disponibilidadStock span').text
-      ##########################################################################################################
-      ##esto se debe guardar
       my_hash = {status: "Pending", site: "weplay", console: console ,name: name, price: price, availability: availability}
-      puts my_hash
-      DispatcherWorker.perform_async("zmart", my_hash)      
+      DispatcherWorker.perform_async("weplay", my_hash)      
       @games_array << Game.new(name, price, availability)
     end
   end
@@ -104,8 +96,6 @@ module Scraper
                1
              end
     end
-    # Render the array through the view
-    #render template: 'scraping_test'
   end
 
   def weplay_ps4_scrape
@@ -128,18 +118,12 @@ module Scraper
       price = game.css('#datos #precio')[0].css('strong')[0].text
       availability = 'Preguntar disponibilidad en tienda'
       @games_array << Game.new(name, price, availability)
-      ##########################################################################################################
-      ##esto se debe guardar
       my_hash = {status: "Pending", site: "sniper", console: console, name: name, price: price, availability: availability}
-      #my_hash = JSON.generate(my_hash)
-      #llama al worker
+      
       DispatcherWorker.perform_async("sniper", my_hash)
       puts my_hash
-      #conn = ActivityLogger.new
-      #conn.save_scrap_sniper(my_hash)
     end
-    # Render the array through the view
-    #render template: 'scraping_test'
+    
   end
 
   def sniper_ps4_scrape
