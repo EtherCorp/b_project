@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022214817) do
+ActiveRecord::Schema.define(version: 20171107023815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,25 +21,10 @@ ActiveRecord::Schema.define(version: 20171022214817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "categories_games", id: false, force: :cascade do |t|
-    t.bigint "category_id", null: false
-    t.bigint "game_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_categories_games_on_category_id"
-    t.index ["game_id"], name: "index_categories_games_on_game_id"
-  end
-
   create_table "clasifications", force: :cascade do |t|
     t.bigint "normative_id"
     t.string "code"
-    t.string "details"
+    t.text "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["normative_id"], name: "index_clasifications_on_normative_id"
@@ -48,10 +33,20 @@ ActiveRecord::Schema.define(version: 20171022214817) do
   create_table "clasifications_games", id: false, force: :cascade do |t|
     t.bigint "clasification_id", null: false
     t.bigint "game_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["clasification_id"], name: "index_clasifications_games_on_clasification_id"
     t.index ["game_id"], name: "index_clasifications_games_on_game_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "company_roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "countries", force: :cascade do |t|
@@ -65,8 +60,6 @@ ActiveRecord::Schema.define(version: 20171022214817) do
   create_table "countries_currencies", id: false, force: :cascade do |t|
     t.bigint "country_id", null: false
     t.bigint "currency_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_countries_currencies_on_country_id"
     t.index ["currency_id"], name: "index_countries_currencies_on_currency_id"
   end
@@ -74,8 +67,6 @@ ActiveRecord::Schema.define(version: 20171022214817) do
   create_table "countries_stores", id: false, force: :cascade do |t|
     t.bigint "country_id", null: false
     t.bigint "store_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_countries_stores_on_country_id"
     t.index ["store_id"], name: "index_countries_stores_on_store_id"
   end
@@ -87,44 +78,77 @@ ActiveRecord::Schema.define(version: 20171022214817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "developers", force: :cascade do |t|
+  create_table "evaluations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "store_id"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_evaluations_on_store_id"
+    t.index ["user_id"], name: "index_evaluations_on_user_id"
+  end
+
+  create_table "features", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "features_products", id: false, force: :cascade do |t|
+    t.bigint "feature_id", null: false
+    t.bigint "product_id", null: false
+    t.index ["feature_id"], name: "index_features_products_on_feature_id"
+    t.index ["product_id"], name: "index_features_products_on_product_id"
+  end
+
+  create_table "game_alt_names", force: :cascade do |t|
+    t.bigint "game_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_alt_names_on_game_id"
+  end
+
+  create_table "game_asociations", force: :cascade do |t|
+    t.bigint "game_id"
+    t.bigint "product_id"
+    t.bigint "platform_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_asociations_on_game_id"
+    t.index ["platform_id"], name: "index_game_asociations_on_platform_id"
+    t.index ["product_id"], name: "index_game_asociations_on_product_id"
   end
 
   create_table "games", force: :cascade do |t|
-    t.bigint "developer_id"
     t.string "name"
-    t.date "release_date"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["developer_id"], name: "index_games_on_developer_id"
   end
 
-  create_table "games_keywords", id: false, force: :cascade do |t|
+  create_table "games_genres", id: false, force: :cascade do |t|
     t.bigint "game_id", null: false
-    t.bigint "keyword_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_games_keywords_on_game_id"
-    t.index ["keyword_id"], name: "index_games_keywords_on_keyword_id"
+    t.bigint "genre_id", null: false
+    t.index ["game_id"], name: "index_games_genres_on_game_id"
+    t.index ["genre_id"], name: "index_games_genres_on_genre_id"
   end
 
-  create_table "games_products", id: false, force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "product_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_games_products_on_game_id"
-    t.index ["product_id"], name: "index_games_products_on_product_id"
-  end
-
-  create_table "keywords", force: :cascade do |t|
+  create_table "genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "involved_companies", force: :cascade do |t|
+    t.bigint "game_asociation_id"
+    t.bigint "company_id"
+    t.bigint "company_role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_involved_companies_on_company_id"
+    t.index ["company_role_id"], name: "index_involved_companies_on_company_role_id"
+    t.index ["game_asociation_id"], name: "index_involved_companies_on_game_asociation_id"
   end
 
   create_table "normatives", force: :cascade do |t|
@@ -140,44 +164,36 @@ ActiveRecord::Schema.define(version: 20171022214817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "prices_products", id: false, force: :cascade do |t|
-    t.bigint "price_id", null: false
-    t.bigint "product_id", null: false
-    t.decimal "normal_price"
-    t.decimal "current_price"
+  create_table "product_prices", force: :cascade do |t|
+    t.bigint "store_product_id"
+    t.bigint "currency_id"
+    t.decimal "normal_price", precision: 10, scale: 2
+    t.decimal "current_price", precision: 10, scale: 2
     t.datetime "flash_deal_ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["price_id"], name: "index_prices_products_on_price_id"
-    t.index ["product_id"], name: "index_prices_products_on_product_id"
-  end
-
-  create_table "product_stores", force: :cascade do |t|
-    t.bigint "product_id_id"
-    t.bigint "store_id_id"
-    t.text "product_url"
-    t.boolean "stock"
-    t.datetime "last_scrapping_attempt"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id_id"], name: "index_product_stores_on_product_id_id"
-    t.index ["store_id_id"], name: "index_product_stores_on_store_id_id"
+    t.index ["currency_id"], name: "index_product_prices_on_currency_id"
+    t.index ["store_product_id"], name: "index_product_prices_on_store_product_id"
   end
 
   create_table "products", force: :cascade do |t|
-    t.bigint "plataform_id"
     t.string "name"
-    t.text "aditional_details"
+    t.text "details"
+    t.date "release_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["plataform_id"], name: "index_products_on_plataform_id"
+  end
+
+  create_table "products_tags", id: false, force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["product_id"], name: "index_products_tags_on_product_id"
+    t.index ["tag_id"], name: "index_products_tags_on_tag_id"
   end
 
   create_table "products_users", id: false, force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_products_users_on_product_id"
     t.index ["user_id"], name: "index_products_users_on_user_id"
   end
@@ -191,34 +207,42 @@ ActiveRecord::Schema.define(version: 20171022214817) do
   create_table "roles_users", id: false, force: :cascade do |t|
     t.bigint "role_id", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_roles_users_on_role_id"
     t.index ["user_id"], name: "index_roles_users_on_user_id"
   end
 
+  create_table "store_products", force: :cascade do |t|
+    t.bigint "store_id"
+    t.bigint "product_id"
+    t.text "url"
+    t.datetime "last_successful_scrap_at"
+    t.datetime "last_scrapping_attempt_at"
+    t.boolean "stock"
+    t.boolean "enabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_store_products_on_product_id"
+    t.index ["store_id"], name: "index_store_products_on_store_id"
+  end
+
   create_table "stores", force: :cascade do |t|
-    t.decimal "average_eval"
-    t.string "store_name"
-    t.string "url"
+    t.string "name"
+    t.string "home_page"
+    t.decimal "average_evaluation", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "stores_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "store_id", null: false
-    t.integer "value"
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["store_id"], name: "index_stores_users_on_store_id"
-    t.index ["user_id"], name: "index_stores_users_on_user_id"
   end
 
   create_table "user_logs", force: :cascade do |t|
-    t.bigint "action_id"
     t.bigint "user_id"
-    t.json "affected_items"
+    t.bigint "action_id"
+    t.text "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["action_id"], name: "index_user_logs_on_action_id"
@@ -226,32 +250,14 @@ ActiveRecord::Schema.define(version: 20171022214817) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.string "name"
-    t.string "nickname"
-    t.string "image"
+    t.bigint "country_id"
+    t.string "username"
+    t.string "password"
+    t.string "encrypted_password"
     t.string "email"
-    t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+    t.index ["country_id"], name: "index_users_on_country_id"
   end
 
 end

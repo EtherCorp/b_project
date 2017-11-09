@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
-  belongs_to :platform
-  has_many :wishlists
-  has_many :product_stores
-  has_many :game_products
+  has_and_belongs_to_many :features
+  has_and_belongs_to_many :users
+  has_and_belongs_to_many :tags
+  has_many :game_asociations
+  has_many :store_products
 end

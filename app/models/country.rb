@@ -1,6 +1,6 @@
 class Country < ApplicationRecord
-  belongs_to :normative 
+  has_and_belongs_to_many :currencies
+  has_and_belongs_to_many :stores
   has_many :users
-  has_many :country_stores
-  has_many :country_currencies
-end 
+  belongs_to :normative
+end
