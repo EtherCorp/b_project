@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022214817) do
+ActiveRecord::Schema.define(version: 20171101173657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,16 @@ ActiveRecord::Schema.define(version: 20171022214817) do
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_games_products_on_game_id"
     t.index ["product_id"], name: "index_games_products_on_product_id"
+  end
+
+  create_table "igdb_keys", force: :cascade do |t|
+    t.string "key"
+    t.datetime "last_used"
+    t.boolean "is_active"
+    t.string "owner_email"
+    t.string "key_class"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "keywords", force: :cascade do |t|

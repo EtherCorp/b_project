@@ -23,4 +23,5 @@
 /config/database.yml
 /config/secrets.yml
 /.env
+/databasepoblation
 /config/initializers/devise.rb
