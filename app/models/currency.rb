@@ -1,4 +1,4 @@
 class Currency < ApplicationRecord
-  has_many :price_products
-  has_many :country_currencies
-end 
+    has_and_belongs_to_many :countries
+    has_many :product_prices
+end

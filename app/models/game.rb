@@ -1,7 +1,6 @@
 class Game < ApplicationRecord
-  belongs_to :developer
-  has_many :game_clasifications
-  has_many :game_products
-  has_many :category_games
-  has_many :game_keywords
+  has_and_belongs_to_many :clasifications
+  has_and_belongs_to_many :genres
+  has_many :game_alt_names
+  has_many :game_asociations
 end
