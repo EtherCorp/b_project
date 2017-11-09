@@ -1,6 +1,6 @@
 module V1
 	module Entities
-		class User_logEntity < Grape::Entity
+		class UserLogEntity < Grape::Entity
 			expose :user_id
 			expose :action_id
 			expose :details

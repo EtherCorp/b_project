@@ -1,6 +1,6 @@
 module V1
 	module Entities
-		class Product_priceEntity < Grape::Entity
+		class ProductPriceEntity < Grape::Entity
 			expose :product_store_id
 			expose :normal_price
 			expose :current_price

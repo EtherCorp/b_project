@@ -1,6 +1,6 @@
 module V1
 	module Entities
-		class Store_productEntity < Grape::Entity
+		class StoreProductEntity < Grape::Entity
 			expose :store_id
 			expose :product_id
 			expose :product_url

@@ -20,7 +20,7 @@ class ProductPrice < ApplicationRecord
     a.currency_id = params[:currency_id]
     a.normal_price = params[:normal_price]
     a.current_price = params[:current_price]
-    a.flash_deal_ends_at = params[:flash_deal_ends_at]]
+    a.flash_deal_ends_at = params[:flash_deal_ends_at]
     a.save
     a
 	end

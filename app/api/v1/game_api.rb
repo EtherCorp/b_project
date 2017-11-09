@@ -1,5 +1,6 @@
 module V1
 	class GameApi < Grape::API
+
 	resource :games do
 			desc 'Get all games'
 			get do 
@@ -158,19 +159,19 @@ module V1
 	resource :game_alt_names do
 		desc 'Get all game_alt_names'
 			get do 
-				present Game_alt_name.all, with: Entities::Game_alt_nameEntity
+				present GameAltName.all, with: Entities::GameAltNameEntity
 			end
 		
 			post do
-				Game_alt_name.create_with_params(params)
+				GameAltName.create_with_params(params)
 			end
 
 			put do
-				Game_alt_name.update_with_params(params)
+				GameAltName.update_with_params(params)
 			end
 
 			delete do
-				Game_alt_name.destroy_with_params(params)
+				GameAltName.destroy_with_params(params)
 			end
 		end
 
@@ -253,19 +254,19 @@ module V1
 	resource :company_roles do
 		desc 'Get all Company_roles'
 			get do 
-				present Company_role.all, with: Entities::Company_roleEntity
+				present CompanyRole.all, with: Entities::CompanyRoleEntity
 			end
 		
 			post do
-				Company_role.create_with_params(params)
+				CompanyRole.create_with_params(params)
 			end
 
 			put do
-				Company_role.update_with_params(params)
+				CompanyRole.update_with_params(params)
 			end
 
 			delete do
-				Company_role.destroy_with_params(params)
+				CompanyRole.destroy_with_params(params)
 			end
 		end
 
@@ -348,19 +349,19 @@ module V1
     resource :user_logs do
 		desc 'Get all user_logs'
 			get do 
-				present User_log.all, with: Entities::User_logEntity
+				present UserLog.all, with: Entities::UserLogEntity
 			end
 		
 			post do
-				User_log.create_with_params(params)
+				UserLog.create_with_params(params)
 			end
 
 			put do
-				User_log.update_with_params(params)
+				UserLog.update_with_params(params)
 			end
 
 			delete do
-				User_log.destroy_with_params(params)
+				UserLog.destroy_with_params(params)
 			end
 		end
 
@@ -368,38 +369,38 @@ module V1
 	resource :product_prices do
 		desc 'Get all product_prices'
 			get do 
-				present Product_price.all, with: Entities::Product_priceEntity
+				present ProductPrice.all, with: Entities::ProductPriceEntity
 			end
 		
 			post do
-				Product_price.create_with_params(params)
+				ProductPrice.create_with_params(params)
 			end
 
 			put do
-				Product_price.update_with_params(params)
+				ProductPrice.update_with_params(params)
 			end
 
 			delete do
-				Product_price.destroy_with_params(params)
+				ProductPrice.destroy_with_params(params)
 			end
 		end
 
 	resource :store_products do
 		desc 'Get all store_products'
 			get do 
-				present Store_product.all, with: Entities::Store_productEntity
+				present StoreProduct.all, with: Entities::StoreProductEntity
 			end
 		
 			post do
-				Store_product.create_with_params(params)
+				StoreProduct.create_with_params(params)
 			end
 
 			put do
-				Store_product.update_with_params(params)
+				StoreProduct.update_with_params(params)
 			end
 
 			delete do
-				Store_product.destroy_with_params(params)
+				StoreProduct.destroy_with_params(params)
 			end
 		end
 
