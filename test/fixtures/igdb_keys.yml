@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  key: MyString
+  last_used: 2017-11-01
+  is_active: false
+  owner_email: MyString
+
+two:
+  key: MyString
+  last_used: 2017-11-01
+  is_active: false
+  owner_email: MyString

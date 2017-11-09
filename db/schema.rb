@@ -127,6 +127,22 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "igdb_keys", force: :cascade do |t|
+    t.string "key"
+    t.datetime "last_used"
+    t.boolean "is_active"
+    t.string "owner_email"
+    t.string "key_class"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "games_genres", id: false, force: :cascade do |t|
     t.bigint "game_id", null: false
     t.bigint "genre_id", null: false
@@ -184,6 +200,15 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "products", force: :cascade do |t|
+    t.bigint "plataform_id"
+    t.string "name"
+    t.text "aditional_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plataform_id"], name: "index_products_on_plataform_id"
+  end
+  
   create_table "products_tags", id: false, force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "tag_id", null: false
