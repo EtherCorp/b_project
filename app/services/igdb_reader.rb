@@ -1,5 +1,5 @@
 class IgdbReader
-  attr_reader :reader_name
+  attr_reader :reader_name, :count
   def initialize(model_class)
     @connection = IgdbConnection.new
     @cache = IgdbCache.new model_class
@@ -7,6 +7,7 @@ class IgdbReader
     @reader_name ||= model_class.name
     @pagination = nil
     @params = { limit: 50 }
+    @count = 0
   end
 
   # Add fields to reader
@@ -55,6 +56,7 @@ class IgdbReader
     loop do
       data = read_data actual_url
       break if data.nil?
+      @count += data.body.size
       @cache.store_data data.body
       actual_url = update_pagination data
       break if actual_url.nil? || !actual_url

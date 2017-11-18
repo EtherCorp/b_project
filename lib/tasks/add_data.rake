@@ -10,6 +10,7 @@ namespace :add_data do
       reader.add_filter 'created_at', 'gt', (DateTime.now - 50).strftime('%Q')
       reader.process_all
       games = reader.get_cache_data
+      reader.update_api_status('Success')
       puts 'Example game:'
       puts games.first
       puts "Table: #{reader.reader_name}, stored #{games.size} elements"

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  game_api_id: one
+  status: MyString
+  games_stored: 1
+  companies_stored: 1
+  genres_stored: 1
+  platforms_stored: 1
+
+two:
+  game_api_id: two
+  status: MyString
+  games_stored: 1
+  companies_stored: 1
+  genres_stored: 1
+  platforms_stored: 1

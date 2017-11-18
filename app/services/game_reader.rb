@@ -4,6 +4,7 @@ class GameReader < IgdbReader
     create_readers
     init_readers_data
     init_game_reader_options
+    create_api_status
   end
 
   # Create nested readers, using an internal mini-cache
@@ -11,7 +12,6 @@ class GameReader < IgdbReader
     @readers = {
       'developers' => { reader: IgdbReader.new('Company'), rel: {} },
       'publishers' => { reader: IgdbReader.new('Company'), rel: {} },
-      'keywords' => { reader: IgdbReader.new('Keyword'), rel: {} },
       'genres' => { reader: IgdbReader.new('Genre'), rel: {} },
       'platforms' => { reader: IgdbReader.new('Platform'), rel: {} }
     }
@@ -21,7 +21,6 @@ class GameReader < IgdbReader
   def init_readers_data
     @readers['developers'][:reader].add_fields('/companies/', ['name'])
     @readers['publishers'][:reader].add_fields('/companies/', ['name'])
-    @readers['keywords'][:reader].add_fields('/keywords/', ['name'])
     @readers['genres'][:reader].add_fields('/genres/', ['name'])
     @readers['platforms'][:reader].add_fields('/platforms/', ['name'])
   end
@@ -77,5 +76,26 @@ class GameReader < IgdbReader
   # Get data from inner reader
   def get_readers
     @readers.map { |_, e| e[:reader] }
+  end
+
+  def create_api_status
+    @api_status = ApiStatus.create({
+      status: 'In Process',
+      games: 0,
+      companies: 0,
+      genres: 0,
+      platforms: 0
+    })
+    @api_status.game_api_id = @connection.api.id
+
+  end
+
+  def update_api_status(status)
+    @api_status.status = status
+    @api_status.games = @count
+    @api_status.genres = @readers['genres'][:reader].count
+    @api_status.platforms = @readers['platforms'][:reader].count
+    @api_status.companies = @readers['developers'][:reader].count + @readers['publishers'][:reader].count
+    @api_status.save
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107023815) do
+ActiveRecord::Schema.define(version: 20171117170013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,18 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "api_statuses", force: :cascade do |t|
+    t.bigint "game_api_id"
+    t.string "status"
+    t.integer "games"
+    t.integer "companies"
+    t.integer "genres"
+    t.integer "platforms"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_api_id"], name: "index_api_statuses_on_game_api_id"
   end
 
   create_table "clasifications", force: :cascade do |t|
@@ -109,6 +121,13 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.index ["game_id"], name: "index_game_alt_names_on_game_id"
   end
 
+  create_table "game_apis", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "game_asociations", force: :cascade do |t|
     t.bigint "game_id"
     t.bigint "product_id"
@@ -127,22 +146,6 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "igdb_keys", force: :cascade do |t|
-    t.string "key"
-    t.datetime "last_used"
-    t.boolean "is_active"
-    t.string "owner_email"
-    t.string "key_class"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "keywords", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "games_genres", id: false, force: :cascade do |t|
     t.bigint "game_id", null: false
     t.bigint "genre_id", null: false
@@ -152,6 +155,16 @@ ActiveRecord::Schema.define(version: 20171107023815) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "igdb_keys", force: :cascade do |t|
+    t.string "key"
+    t.datetime "last_used"
+    t.boolean "is_active"
+    t.string "owner_email"
+    t.string "key_class"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -200,15 +213,6 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", force: :cascade do |t|
-    t.bigint "plataform_id"
-    t.string "name"
-    t.text "aditional_details"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["plataform_id"], name: "index_products_on_plataform_id"
-  end
-  
   create_table "products_tags", id: false, force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "tag_id", null: false
@@ -285,4 +289,5 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.index ["country_id"], name: "index_users_on_country_id"
   end
 
+  add_foreign_key "api_statuses", "game_apis"
 end
