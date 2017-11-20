@@ -30,12 +30,16 @@ module Scraper
     games = page.css('.BoxProductoS2')
     @games_array = []
     games.each do |game|
+      url_game= ''
       name = game.css('.BoxProductoS2_Descripcion').text
       price = game.css('.BoxProductoS2_Precios').css('.BoxProductoS2_Precio').text
+      game.css('.BoxProductoS2_Image').search('a').each do |link|
+        url_game = 'http://www.zmart.cl'+link['href']
+      end
       game_page = get_game_page(name, page)
       availability = game_page.css('#ficha_producto_int').css('.txTituloRef')[0].text.split(' ')[1]
       @games_array << Game.new(name, price, availability)
-      my_hash = {status: "Pending", site: "zmart", console: console, name: name, price: price, availability: availability}
+      my_hash = {status: "Pending", site: "zmart",url: url_game, console: console, name: name, price: price, availability: availability}
      
       DispatcherWorker.perform_async("zmart", my_hash)
       puts my_hash
@@ -69,11 +73,16 @@ module Scraper
     games = page.css('.products-grid')
     while games.css('.containerNombreYMarca')[i]
       name = games.css('.item .product-name')[i].text
+      url_game= ''
       price = get_price_weplay(games, i)
+      games.css('.item .product-name')[i].search('a').each do |link|
+        url_game = link['href']
+      end
       i += 1
       game_page = get_game_page(name, page)
       availability = game_page.css('.disponibilidadStock span').text
-      my_hash = {status: "Pending", site: "weplay", console: console ,name: name, price: price, availability: availability}
+      my_hash = {status: "Pending", site: "weplay",url: url_game, console: console ,name: name, price: price, availability: availability}
+      puts my_hash
       DispatcherWorker.perform_async("weplay", my_hash)      
       @games_array << Game.new(name, price, availability)
     end
@@ -115,11 +124,15 @@ module Scraper
     games = page.css('#producto')
     games.each do |game|
       name = game.css('#titulo').text
+      url_game = ''
+      game.css('#datos').search('a').each do |link|
+        url_game = 'http://www.sniper.cl/'+link['href']
+      end
       price = game.css('#datos #precio')[0].css('strong')[0].text
       availability = 'Preguntar disponibilidad en tienda'
       @games_array << Game.new(name, price, availability)
-      my_hash = {status: "Pending", site: "sniper", console: console, name: name, price: price, availability: availability}
-      
+      my_hash = {status: "Pending", site: "sniper",url: url_game, console: console, name: name, price: price, availability: availability}
+      puts url_game      
       DispatcherWorker.perform_async("sniper", my_hash)
       puts my_hash
     end
@@ -150,7 +163,7 @@ class Test
     #zmart_ps4_scrape
     #zmart_xbone_scrape
     weplay_ps4_scrape
-    weplay_xbone_scrape
+    #weplay_xbone_scrape
   end
 end
 
