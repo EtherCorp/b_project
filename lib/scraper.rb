@@ -42,7 +42,6 @@ module Scraper
       my_hash = {status: "Pending", site: "zmart",url: url_game, console: console, name: name, price: price, availability: availability}
      
       DispatcherWorker.perform_async("zmart", my_hash)
-      puts my_hash
      
     end
     
@@ -82,7 +81,6 @@ module Scraper
       game_page = get_game_page(name, page)
       availability = game_page.css('.disponibilidadStock span').text
       my_hash = {status: "Pending", site: "weplay",url: url_game, console: console ,name: name, price: price, availability: availability}
-      puts my_hash
       DispatcherWorker.perform_async("weplay", my_hash)      
       @games_array << Game.new(name, price, availability)
     end
@@ -132,9 +130,7 @@ module Scraper
       availability = 'Preguntar disponibilidad en tienda'
       @games_array << Game.new(name, price, availability)
       my_hash = {status: "Pending", site: "sniper",url: url_game, console: console, name: name, price: price, availability: availability}
-      puts url_game      
       DispatcherWorker.perform_async("sniper", my_hash)
-      puts my_hash
     end
     
   end
@@ -158,9 +154,9 @@ class Test
   def initialize
     #los metodos comentados hacen todos los scraping, recomendable trabajar con unno a la vez
     #para poder probarlos
-    #sniper_ps4_scrape
+    sniper_ps4_scrape
     #sniper_xbone_scrape
-    #zmart_ps4_scrape
+    zmart_ps4_scrape
     #zmart_xbone_scrape
     weplay_ps4_scrape
     #weplay_xbone_scrape
