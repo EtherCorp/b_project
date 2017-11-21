@@ -3,14 +3,14 @@ require 'json'
 require_relative '../../b_project/app/workers/dispatcher_worker'
 module Scraper
   class Game
+    attr_reader :name
+    attr_reader :price
+    attr_reader :availability
     def initialize(name, price, availability)
       @name = name
       @price = price
       @availability = availability
     end
-    attr_reader :name
-    attr_reader :price
-    attr_reader :availability
   end
 
   def get_page(url)
@@ -40,11 +40,9 @@ module Scraper
       availability = game_page.css('#ficha_producto_int').css('.txTituloRef')[0].text.split(' ')[1]
       @games_array << Game.new(name, price, availability)
       my_hash = {status: "Pending", site: "zmart",url: url_game, console: console, name: name, price: price, availability: availability}
-     
       DispatcherWorker.perform_async("zmart", my_hash)
      
     end
-    
   end
 
   def zmart_ps4_scrape
@@ -132,7 +130,6 @@ module Scraper
       my_hash = {status: "Pending", site: "sniper",url: url_game, console: console, name: name, price: price, availability: availability}
       DispatcherWorker.perform_async("sniper", my_hash)
     end
-    
   end
 
   def sniper_ps4_scrape
@@ -145,7 +142,7 @@ module Scraper
     sniper_scrape(url,"xbone")
   end
 
-end
+#end
 
 
 ##clase prara probar los metodos del modulo Scraper
@@ -156,12 +153,12 @@ class Test
     #para poder probarlos
     sniper_ps4_scrape
     #sniper_xbone_scrape
-    zmart_ps4_scrape
+    #zmart_ps4_scrape
     #zmart_xbone_scrape
-    weplay_ps4_scrape
+    #weplay_ps4_scrape
     #weplay_xbone_scrape
   end
 end
 
 Test.new
-
+end
