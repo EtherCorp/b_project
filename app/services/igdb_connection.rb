@@ -14,7 +14,7 @@ class IgdbConnection
   end
 
   def store_api
-    @api = GameApi.create name: 'API IGDB', url: 'https://api-2445582011268.apicast.io'
+    @api = GameApi.create_with(url: 'https://api-2445582011268.apicast.io').find_or_create_by(name: 'API IGDB')
   end
 
   # Get data requested
