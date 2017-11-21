@@ -2,7 +2,7 @@
 class Test
     include Scrapers
     def initialize
-      page = 'Zmart'
+      page = 'Sniper'
       scraper = Object.const_get('Scrapers::'+ page).new
       console = 'xbone'
       scraper.scrap(page,console)

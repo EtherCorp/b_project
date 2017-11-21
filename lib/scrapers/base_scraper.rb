@@ -1,6 +1,6 @@
 require 'mechanize'  
 require 'json'
-require_relative '../../b_project/app/workers/dispatcher_worker'
+require_relative '../../app/workers/dispatcher_worker'
 module Scrapers
   class BaseScraper
     def scrap(page,console)
@@ -19,5 +19,3 @@ module Scrapers
     end
   end
 end  
-
-
