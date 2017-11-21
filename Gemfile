@@ -43,16 +43,15 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-#Grape for API
+# Grape for API
 gem 'grape', '~> 1.0.1'
 gem 'grape-entity', '~> 0.6.1'
 gem 'grape_on_rails_routes', '~> 0.3.2'
 
 # Devise for users management
 gem 'devise', '~> 4.3.0'
-gem 'omniauth', '~> 1.6.1'
 gem 'devise_token_auth', '~> 0.1.42'
-
+gem 'omniauth', '~> 1.6.1'
 
 # Gem for external API communication
 gem 'faraday', '~> 0.13.1'
@@ -62,3 +61,6 @@ gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
 # For use sidekiq how background task queue
 gem 'redis', '~> 4.0.1'
 gem 'sidekiq', '~> 5.0.5'
+
+# Monitoring
+gem 'net-ping', '~> 2.0.2'
