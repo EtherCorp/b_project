@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107023815) do
+ActiveRecord::Schema.define(version: 20171122173436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,22 +127,6 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "igdb_keys", force: :cascade do |t|
-    t.string "key"
-    t.datetime "last_used"
-    t.boolean "is_active"
-    t.string "owner_email"
-    t.string "key_class"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "keywords", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "games_genres", id: false, force: :cascade do |t|
     t.bigint "game_id", null: false
     t.bigint "genre_id", null: false
@@ -152,6 +136,16 @@ ActiveRecord::Schema.define(version: 20171107023815) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "igdb_keys", force: :cascade do |t|
+    t.string "key"
+    t.datetime "last_used"
+    t.boolean "is_active"
+    t.string "owner_email"
+    t.string "key_class"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -200,15 +194,6 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", force: :cascade do |t|
-    t.bigint "plataform_id"
-    t.string "name"
-    t.text "aditional_details"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["plataform_id"], name: "index_products_on_plataform_id"
-  end
-  
   create_table "products_tags", id: false, force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "tag_id", null: false
@@ -234,6 +219,27 @@ ActiveRecord::Schema.define(version: 20171107023815) do
     t.bigint "user_id", null: false
     t.index ["role_id"], name: "index_roles_users_on_role_id"
     t.index ["user_id"], name: "index_roles_users_on_user_id"
+  end
+
+  create_table "server_status_logs", force: :cascade do |t|
+    t.float "disk_used"
+    t.float "percentage_disk_used"
+    t.float "cpu_used"
+    t.float "active_memory_used"
+    t.float "bandwidth_rx"
+    t.float "bandwidth_tx"
+    t.integer "disk_reads"
+    t.integer "disk_writes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "store_logs", force: :cascade do |t|
+    t.bigint "store_id"
+    t.boolean "online"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_store_logs_on_store_id"
   end
 
   create_table "store_products", force: :cascade do |t|

@@ -1,25 +1,35 @@
 require 'monitoring/usagewatch'
-require 'monitoring/test_connection'
+require 'monitoring/connection'
 
 namespace :monitor do
   desc 'Prints all System information (Server Monitoring)'
   task usage: [:environment, :dotenv] do
-    puts "#{Usagewatch::Linux.uw_diskused} Gigabytes Used"
-    puts "#{Usagewatch::Linux.uw_diskused_perc} Perventage of Gigabytes Used"
-    puts "#{Usagewatch::Linux.uw_cpuused}% CPU Used"
-    puts "#{Usagewatch::Linux.uw_tcpused} TCP Connections Used"
-    puts "#{Usagewatch::Linux.uw_udpused} UDP Connections Used"
-    puts "#{Usagewatch::Linux.uw_memused}% Active Memory Used"
-    puts "#{Usagewatch::Linux.uw_load} Average System Load Of The Past Minute"
-    puts "#{Usagewatch::Linux.uw_bandrx} Mbit/s Current Bandwidth Received"
-    puts "#{Usagewatch::Linux.uw_bandtx} Mbit/s Current Bandwidth Transmitted"
-    puts "#{Usagewatch::Linux.uw_diskioreads}/s Current Disk Reads Completed"
-    puts "#{Usagewatch::Linux.uw_diskiowrites}/s Current Disk Writes Completed"
-    puts "Top Ten Processes By CPU Consumption: #{Usagewatch::Linux.uw_cputop}"
-    puts "Top Ten Processes By Memory Consumption: #{Usagewatch::Linux.uw_memtop}"
+    disk_used = Usagewatch::Linux.uw_diskused
+    disk_used_perc = Usagewatch::Linux.uw_diskused_perc
+    cpu_used = Usagewatch::Linux.uw_cpuused
+    mem_used = Usagewatch::Linux.uw_memused
+    bandrx = Usagewatch::Linux.uw_bandrx
+    bandtx = Usagewatch::Linux.uw_bandtx
+    diskioreads = Usagewatch::Linux.uw_diskioreads
+    diskiowrites = Usagewatch::Linux.uw_diskiowrites
+
+    ServerStatusLog.create(disk_used: disk_used,
+                          percentage_disk_used: disk_used_perc, 
+                          cpu_used: cpu_used, 
+                          active_memory_used: mem_used, 
+                          bandwidth_rx: bandrx, 
+                          bandwidth_tx: bandtx, 
+                          disk_reads: diskioreads, 
+                          disk_writes: diskiowrites)
   end
 
   task ping: [:environment, :dotenv] do
-    puts Monitoring::TestConnection.ping
+    net_status = Monitoring::Connection.test
+    if net_status
+      # Zmart must be created
+      # Store.create(name: 'Zmart', home_page: 'https://www.zmart.cl/', average_evaluation: 1.0)
+      store = Store.find_by(name: 'Zmart')
+      store.check_page
+    end
   end
 end
