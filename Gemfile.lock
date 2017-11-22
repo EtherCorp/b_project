@@ -205,8 +205,8 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   dotenv-rails
-  grape (~> 1.0.1)
-  grape-entity (~> 0.6.1)
+  grape (= 1.0.1)
+  grape-entity (= 0.6.1)
   grape_on_rails_routes (~> 0.3.2)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)

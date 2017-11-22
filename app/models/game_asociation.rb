@@ -3,4 +3,5 @@ class GameAsociation < ApplicationRecord
   belongs_to :game
   belongs_to :product
   belongs_to :platform
+
 end
