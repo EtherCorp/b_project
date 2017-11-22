@@ -81,12 +81,8 @@ body {
   margin-left: 5px;
 }
 .breadcrumb-style{
-<<<<<<< HEAD
   padding-left: 30px;
   text-align:left;
-=======
-  margin-left: 20px;
->>>>>>> homepage
 }
 .timestamp-style{
   margin-right: 20px;
@@ -111,7 +107,6 @@ body {
 .title-console-logo{
   padding: 3px;
   height: 30px !important;
-<<<<<<< HEAD
 }
 .platform-box{
   padding:15px;
@@ -120,6 +115,4 @@ body {
   margin-left: 3px;
   margin-right: 3px;
   margin: 2px;
-=======
->>>>>>> homepage
 }
