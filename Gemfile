@@ -44,14 +44,17 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #Grape for API
+#An opinionated framework for creating REST-like APIs in Ruby.
 gem 'grape', '~> 1.0.1'
+# An API focused facade that sits on top of an object model.
 gem 'grape-entity', '~> 0.6.1'
+# Add routes printing for Grape with Rails 
 gem 'grape_on_rails_routes', '~> 0.3.2'
 
 # Devise for users management
 gem 'devise', '~> 4.3.0'
-gem 'omniauth', '~> 1.6.1'
 gem 'devise_token_auth', '~> 0.1.42'
+gem 'omniauth', '~> 1.6.1'
 
 
 # Gem for external API communication
