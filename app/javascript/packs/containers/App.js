@@ -17,7 +17,11 @@ class App extends Component {
               <div className="grey darken-2 white-text main-icon">
                 <div className="row">
                   <img width="100" height="100"
+<<<<<<< HEAD
                        src="http://i65.tinypic.com/9kw70h.png"
+=======
+                       src="https://lh6.googleusercontent.com/bAaVGAoZ2SIvBp8ljutGvY47s5tsV4mH3rg-M6B3kOkyVQ-qsbbyrdcHk-YN10mYNuhgIqgwmoHy492OJwl2=w1301-h668"
+>>>>>>> homepage
                        className="responsive-img logo-style"/>
                 </div>
               </div>
@@ -25,6 +29,7 @@ class App extends Component {
 
             <li id="dash_dashboard"><a className="waves-effect" href="#!"><b>Filtros</b></a></li>
 
+<<<<<<< HEAD
             <div className="input-field col s12 platform-box">
               <select>
                 <option value="" disabled selected>Elija consola</option>
@@ -75,6 +80,52 @@ class App extends Component {
             </div>
 
 
+=======
+            <ul className="collapsible" data-collapsible="accordion">
+              
+              <li id="dash_users">
+                <div id="dash_users_header" className="collapsible-header waves-effect"><b>Users</b></div>
+                <div id="dash_users_body" className="collapsible-body">
+                  <ul>
+                    <li id="users_seller">
+                      <a className="waves-effect" href="#!">Seller</a>
+                    </li>
+                    <li id="users_customer">
+                      <a className="waves-effect" href="#!">Customer</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li id="dash_products">
+                <div id="dash_products_header" className="collapsible-header waves-effect"><b>Products</b></div>
+                <div id="dash_products_body" className="collapsible-body">
+                  <ul>
+                    <li id="products_product">
+                      <a className="waves-effect" href="#!">Products</a>
+                      <a className="waves-effect" href="#!">Orders</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li id="dash_categories">
+                <div id="dash_categories_header" className="collapsible-header waves-effect"><b>Categories</b></div>
+                <div id="dash_categories_body" className="collapsible-body">
+                  <ul>
+                    <li id="categories_category">
+                      <a className="waves-effect" href="#!">Category</a>
+                    </li>
+
+                    <li id="categories_sub_category">
+                      <a className="waves-effect" href="#!">Sub Category</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              
+            </ul>
+>>>>>>> homepage
 
           </ul>
 
@@ -91,7 +142,10 @@ class App extends Component {
 
                 <ul className="right hide-on-med-and-down">
                   <li>
+<<<<<<< HEAD
                     <li><a href="#!"><i class="material-icons">search</i></a></li>
+=======
+>>>>>>> homepage
                     <a className='right dropdown-button' href='' data-activates='user_dropdown'><i
                       className=' material-icons'>account_circle</i></a>
                   </li>
@@ -103,8 +157,14 @@ class App extends Component {
             </nav>
 
             <nav>
+<<<<<<< HEAD
               <div className="nav-wrapper grey darken-2 breadcrumb-style">
                 <a className="breadcrumb " href="#!">Home</a>
+=======
+              <div className="nav-wrapper grey darken-2">
+                <a className="breadcrumb breadcrumb-style" href="#!">Admin</a>
+                <a className="breadcrumb" href="#!">Index</a>
+>>>>>>> homepage
                 <div id="timestamp" className="right timestamp-style"></div>
               </div>
             </nav>
@@ -330,6 +390,7 @@ class App extends Component {
             <div className="container">
               <div className="row">
                 <div className="col s12">
+<<<<<<< HEAD
                   <h5 className="white-text">Acerca de Banana Project</h5>
                   <ul id='credits'>
                     <li>
@@ -338,6 +399,17 @@ class App extends Component {
                     </li>
                     <li>
                       Nos puedes encontrar en: <a href="https://facebook.com">Facebook</a>,<a href="https://twitter.com">Twitter</a>
+=======
+                  <h5 className="white-text">Icon Credits</h5>
+                  <ul id='credits'>
+                    <li>
+                      Gif Logo made using <a href="http://formtypemaker.appspot.com/">Form Type Maker</a> from <a
+                      href="https://github.com/romannurik/FORMTypeMaker">romannurik</a>
+                    </li>
+                    <li>
+                      Icons made by <a href="https://material.io/icons/">Google</a>, available under <a
+                      href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License Version 2.0</a>
+>>>>>>> homepage
                     </li>
                   </ul>
                 </div>
@@ -345,6 +417,10 @@ class App extends Component {
             </div>
             <div className="footer-copyright">
               <div className="container footer-style">
+<<<<<<< HEAD
+=======
+                <span>Made By <a href="https://github.com/piedcipher" target="_blank">Tirth Patel</a></span>
+>>>>>>> homepage
               </div>
             </div>
           </footer>
