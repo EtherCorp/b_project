@@ -30,7 +30,6 @@ class GameReader < IgdbReader
   def init_game_reader_options
     add_fields('/games/', ['name', 'alternative_names'] + @readers.keys)
     add_filter 'release_dates.platform', 'any', '48,49'
-    # add_filter 'created_at', 'gt', (DateTime.now - 50).strftime('%s')
     add_scroll_pagination
   end
 
@@ -79,15 +78,15 @@ class GameReader < IgdbReader
   end
 
   def create_api_status
-    @api_status = ApiStatus.create({
-      status: 'In Process',
-      games: 0,
-      companies: 0,
-      genres: 0,
-      platforms: 0
-    })
-    @api_status.game_api_id = @connection.api.id
-
+    @api_status = ApiStatus.create do |u|
+      u.status = 'In Process'
+      u.games = 0
+      u.companies = 0
+      u.genres = 0
+      u.platforms = 0
+      u.game_api_id = @connection.api.id
+    end
+    last_api_processing
   end
 
   def update_api_status(status)
@@ -97,5 +96,16 @@ class GameReader < IgdbReader
     @api_status.platforms = @readers['platforms'][:reader].count
     @api_status.companies = @readers['developers'][:reader].count + @readers['publishers'][:reader].count
     @api_status.save
+  end
+
+  def success_api
+    update_api_status 'Success'
+  end
+
+  def last_api_processing
+    last_api_status = ApiStatus.where(game_api_id: @connection.api.id).where(status: 'Success').last
+    if last_api_status
+      add_filter 'created_at', 'gt', (last_api_status.created_at).strftime('%Q')
+    end
   end
 end

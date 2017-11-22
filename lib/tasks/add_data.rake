@@ -7,10 +7,9 @@ namespace :add_data do
     results = Benchmark.measure do
       reader = GameReader.new
       # 20 days before
-      reader.add_filter 'created_at', 'gt', (DateTime.now - 50).strftime('%Q')
       reader.process_all
       games = reader.get_cache_data
-      reader.update_api_status('Success')
+      reader.success_api
       puts 'Example game:'
       puts games.first
       puts "Table: #{reader.reader_name}, stored #{games.size} elements"
