@@ -20,16 +20,15 @@ namespace :monitor do
                           bandwidth_rx: bandrx, 
                           bandwidth_tx: bandtx, 
                           disk_reads: diskioreads, 
-                          disk_writes: diskiowrites)
+                          disk_writes: diskiowrites)                          
   end
 
-  task ping: [:environment, :dotenv] do
+  task test_connection: [:environment, :dotenv] do
     net_status = Monitoring::Connection.test
     if net_status
-      # Zmart must be created
-      # Store.create(name: 'Zmart', home_page: 'https://www.zmart.cl/', average_evaluation: 1.0)
       store = Store.find_by(name: 'Zmart')
-      store.check_page
+      result = store.check_page
     end
+    puts result
   end
 end

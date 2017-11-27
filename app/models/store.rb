@@ -7,5 +7,6 @@ class Store < ApplicationRecord
   def check_page
     status = Monitoring::Connection.check(home_page)
     store_logs << StoreLog.create(online: status)
+    status
   end
 end
