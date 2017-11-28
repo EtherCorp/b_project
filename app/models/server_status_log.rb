@@ -1,0 +1,3 @@
+class ServerStatusLog < ApplicationRecord
+
+end
