@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117170013) do
+ActiveRecord::Schema.define(version: 20171122173532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20171117170013) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "external_id"
   end
 
   create_table "company_roles", force: :cascade do |t|
@@ -144,6 +145,7 @@ ActiveRecord::Schema.define(version: 20171117170013) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "external_id"
   end
 
   create_table "games_genres", id: false, force: :cascade do |t|
@@ -157,6 +159,7 @@ ActiveRecord::Schema.define(version: 20171117170013) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "external_id"
   end
 
   create_table "igdb_keys", force: :cascade do |t|
@@ -191,6 +194,7 @@ ActiveRecord::Schema.define(version: 20171117170013) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "external_id"
   end
 
   create_table "product_prices", force: :cascade do |t|

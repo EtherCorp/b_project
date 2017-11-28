@@ -60,8 +60,8 @@ class IgdbReader
       @cache.store_data data.body
       actual_url = update_pagination data
       break if actual_url.nil? || !actual_url
-      post_loop if defined? post_loop
     end
+    post_proccess if defined? post_proccess
     @cache.cache_data
   end
 
@@ -111,12 +111,8 @@ class IgdbReader
     @url
   end
 
-  # Store to db (TO DO)
-  def store_to_db
-    @cache.store_to_db
-  end
-
-  def get_cache_data
-    @cache.cache_data
+  # Returns cache data
+  def cache
+    @cache
   end
 end

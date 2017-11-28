@@ -62,3 +62,5 @@ gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
 # For use sidekiq how background task queue
 gem 'redis', '~> 4.0.1'
 gem 'sidekiq', '~> 5.0.5'
+
+gem 'activerecord-import', '0.21.0'

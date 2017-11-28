@@ -4,16 +4,24 @@ class GameReader < IgdbReader
     create_readers
     init_readers_data
     init_game_reader_options
-    create_api_status
+    init_api_status
+  end
+
+  def init_api_status
+    @api_status = ApiStatusManager.new(@connection.api.id)
+    @api_status.new_status
+    last_api_status = @api_status.last_api_processing
+    add_filter 'created_at', 'gt', (last_api_status.created_at).strftime('%Q') if last_api_status
+    #add_filter 'created_at', 'gt', (DateTime.now - 30).strftime('%Q')
   end
 
   # Create nested readers, using an internal mini-cache
   def create_readers
     @readers = {
-      'developers' => { reader: IgdbReader.new('Company'), rel: {} },
-      'publishers' => { reader: IgdbReader.new('Company'), rel: {} },
-      'genres' => { reader: IgdbReader.new('Genre'), rel: {} },
-      'platforms' => { reader: IgdbReader.new('Platform'), rel: {} }
+      'developers' => { reader: IgdbReader.new(Company), rel: {} },
+      'publishers' => { reader: IgdbReader.new(Company), rel: {} },
+      'genres' => { reader: IgdbReader.new(Genre), rel: {} },
+      'platforms' => { reader: IgdbReader.new(Platform), rel: {} }
     }
   end
 
@@ -42,6 +50,15 @@ class GameReader < IgdbReader
       # store_all_to_db
     end
     data
+  rescue StandardError => ex
+    @api_status.error_api(data_counts)
+    raise ex
+  end
+
+  def data_counts
+    counts = @readers.each_with_object({}) { |pair, hash| hash[pair[0]] = pair[1][:reader].cache.count }
+    counts['games'] = @cache.cache_data.count
+    counts
   end
 
   # Internal function, process each key data
@@ -63,49 +80,41 @@ class GameReader < IgdbReader
   def require_api_data(reader_str)
     reader_str[:rel].keys.each_slice(50) do |keys|
       reader_str[:reader].process_by_id(keys)
-      # make_game_relations(reader_str, keys, data)
     end
   end
 
   # Get data from inner reader
-  def get_reader_data(table)
-    @readers['developers'][:reader].get_cache_data
+  def readers
+    readers = @readers.each_with_object({}) { |pair, hash| hash[pair[0]] = pair[1][:reader] }
+    readers['games'] = self
+    readers
   end
 
-  # Get data from inner reader
-  def get_readers
-    @readers.map { |_, e| e[:reader] }
+  # Store data to db
+  def store_to_db
+    games_store = GamesStore.new
+    games_store.store_to_db(cached, relations)
+    @api_status.stored_api(data_counts)
   end
 
-  def create_api_status
-    @api_status = ApiStatus.create do |u|
-      u.status = 'In Process'
-      u.games = 0
-      u.companies = 0
-      u.genres = 0
-      u.platforms = 0
-      u.game_api_id = @connection.api.id
+  # Returns cache data
+  def cached
+    data = {}
+    @readers.each_key do |key|
+      data[key] = @readers[key][:reader].cache
     end
-    last_api_processing
+    data['games'] = @cache
+    data
   end
 
-  def update_api_status(status)
-    @api_status.status = status
-    @api_status.games = @count
-    @api_status.genres = @readers['genres'][:reader].count
-    @api_status.platforms = @readers['platforms'][:reader].count
-    @api_status.companies = @readers['developers'][:reader].count + @readers['publishers'][:reader].count
-    @api_status.save
+  # Returns relations of annexed data with games
+  def relations
+    @readers.each_with_object({}) { |pair, hash| hash[pair[0]] = pair[1][:rel] }
   end
 
-  def success_api
-    update_api_status 'Success'
-  end
-
-  def last_api_processing
-    last_api_status = ApiStatus.where(game_api_id: @connection.api.id).where(status: 'Success').last
-    if last_api_status
-      add_filter 'created_at', 'gt', (last_api_status.created_at).strftime('%Q')
-    end
+  # Execute after proccess all games from IGDB API
+  def post_proccess
+    @api_status.received_api(data_counts)
+    # store_to_db
   end
 end
