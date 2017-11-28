@@ -1,0 +1,118 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+.App-navbar{
+  background-color: #205209 !important;
+}
+
+.App-footer{
+  background-color: #205209 !important;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+ header,
+ main,
+ footer {
+   padding-left: 240px;
+                      }
+body {
+  backgroud: white;
+}
+@media only screen and (max-width: 992px) {
+  header,
+  main,
+  footer {
+    padding-left: 0;
+  }
+}
+#credits li,
+#credits li a {
+  color: white;
+}
+#credits li a {
+  font-weight: bold;
+}
+.footer-copyright .container,
+.footer-copyright .container a {
+  color: whitesmoke;
+}
+.fab-tip {
+  position: fixed;
+  right: 85px;
+  padding: 0px 0.5rem;
+  text-align: right;
+  background-color: #323232;
+  border-radius: 2px;
+  color: #FFF;
+  width: auto;
+}
+.main-icon{
+  height: 130px;
+}
+.logo-style{
+  margin-top: 5%;
+}
+.banana-logo{
+  margin-top: 17px;
+  margin-left: 5px;
+}
+.breadcrumb-style{
+  padding-left: 30px;
+  text-align:left;
+}
+.timestamp-style{
+  margin-right: 20px;
+}
+.footer-style{
+  font-weight: bold;
+}
+.card-style{
+  padding: 35px;
+}
+.content-card{
+  padding: 30px;
+}
+.price{
+  height: 40px;
+  padding:10px !important;
+}
+.simple-card-container{
+  font-size: inherit;
+  padding-left: 40px;
+}
+.title-console-logo{
+  padding: 3px;
+  height: 30px !important;
+}
+.platform-box{
+  padding:15px;
+}
+.tag-style{
+  margin-left: 3px;
+  margin-right: 3px;
+  margin: 2px;
+}

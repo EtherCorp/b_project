@@ -160,6 +160,8 @@ GEM
       rack (>= 0.4)
     rack-protection (2.0.0)
       rack
+    rack-proxy (0.6.2)
+      rack
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
     rails (5.1.4)
@@ -217,6 +219,9 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.20.0)
     thread_safe (0.3.6)
+    turbolinks (5.0.1)
+      turbolinks-source (~> 5)
+    turbolinks-source (5.0.3)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     unf (0.1.4)
@@ -229,6 +234,10 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.7)
       rack (>= 1.0)
+    webpacker (3.0.2)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     webrobots (0.1.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
@@ -254,10 +263,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mechanize (~> 2.7.5)
   mongo (~> 2.4.3)
-<<<<<<< HEAD
   net-ping (~> 2.0.2)
-=======
->>>>>>> 5ece3da9e397d429f5be388d0e00d1fb1af2f263
   omniauth (~> 1.6.1)
   pg (~> 0.18)
   puma (~> 3.7)
@@ -267,7 +273,9 @@ DEPENDENCIES
   sidekiq (~> 5.0.5)
   spring
   spring-watcher-listen (~> 2.0.0)
+  turbolinks (~> 5.0.0)
   tzinfo-data
+  webpacker (~> 3.0.2)
 
 BUNDLED WITH
    1.16.0
