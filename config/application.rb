@@ -10,7 +10,8 @@ module BProjectEther
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
-    config.autoload_paths += %W(#{config.root}/lib) # add this line
+    config.autoload_paths += %W[#{config.root}/lib] # add this line
+    config.autoload_paths += %W[#{config.root}/lib/monitoring]
 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
 	config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]

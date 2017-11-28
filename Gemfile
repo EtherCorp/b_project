@@ -56,7 +56,6 @@ gem 'devise', '~> 4.3.0'
 gem 'devise_token_auth', '~> 0.1.42'
 gem 'omniauth', '~> 1.6.1'
 
-
 # Gem for external API communication
 gem 'faraday', '~> 0.13.1'
 gem 'faraday_middleware', '~> 0.10.1'
@@ -65,3 +64,6 @@ gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
 # For use sidekiq how background task queue
 gem 'redis', '~> 4.0.1'
 gem 'sidekiq', '~> 5.0.5'
+
+# Monitoring
+gem 'net-ping', '~> 2.0.2'

@@ -143,6 +143,7 @@ GEM
       mustermann (~> 1.0.0)
     net-http-digest_auth (1.4.1)
     net-http-persistent (2.9.4)
+    net-ping (2.0.2)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -253,6 +254,10 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mechanize (~> 2.7.5)
   mongo (~> 2.4.3)
+<<<<<<< HEAD
+  net-ping (~> 2.0.2)
+=======
+>>>>>>> 5ece3da9e397d429f5be388d0e00d1fb1af2f263
   omniauth (~> 1.6.1)
   pg (~> 0.18)
   puma (~> 3.7)
