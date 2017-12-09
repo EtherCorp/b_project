@@ -1,0 +1,2 @@
+class GameApi < ApplicationRecord
+end

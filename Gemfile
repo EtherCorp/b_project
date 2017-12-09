@@ -65,6 +65,7 @@ gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
 gem 'redis', '~> 4.0.1'
 gem 'sidekiq', '~> 5.0.5'
 
+gem 'activerecord-import', '0.21.0'
 gem 'turbolinks', '~> 5.0.0'
 gem 'webpacker', '~> 3.0.2'
 # Monitoring

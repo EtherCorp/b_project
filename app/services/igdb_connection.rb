@@ -3,13 +3,18 @@ class IgdbConnection
   # Class constructor
   # Set classes and necessary data for connection
   def initialize
+    store_api
     @key_balancer = KeyBalancer.new
     @connection = APIConnection.new(
-      'https://api-2445582011268.apicast.io',
+      @api.url,
       'Accept' => 'application/json',
       'user-key' => @key_balancer.key
     )
     @change_key_codes = [401, 403]
+  end
+
+  def store_api
+    @api = GameApi.create_with(url: 'https://api-2445582011268.apicast.io').find_or_create_by(name: 'API IGDB')
   end
 
   # Get data requested
@@ -34,7 +39,7 @@ class IgdbConnection
   def raise_error_if_required(response)
     code = response.status
     # raise_error response if @connection.code?(400, code) && !(@change_key_codes.include? code)
-    raise_error response unless (@change_key_codes.include? code)
+    raise_error response unless @change_key_codes.include? code
     raise_error response if @connection.code? 500, code
   end
 
@@ -52,4 +57,5 @@ class IgdbConnection
   end
 
   private :raise_error, :raise_error_if_required, :update_key_if_required, :update_key
+  attr_reader :api
 end
