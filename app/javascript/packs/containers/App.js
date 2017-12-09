@@ -1,83 +1,57 @@
 import React, {Component} from 'react';
 import './App.css';
 
-import {Navbar, NavItem, Icon, Footer, Input, MenuItem} from 'react-materialize';
-
+import PlatformSection from '../components/PlatformSection/PlatformSection';
+import Sidebar from '../components/Sidebar/Sidebar';
+import Footer from '../components/Footer/Footer';
 
 class App extends Component {
+
+  state = {
+    test_platform: [
+      {titlePlatform:"xbox", cards: [{title: 'My title',description: 'My description'}]}
+    ],
+    platforms: [
+
+      {id: 'play4', title:'play 4',
+      imgPlatform:"https://logodownload.org/wp-content/uploads/2017/05/playstation-4-logo-ps4-8.png",
+      cards: [
+        { title: 'My title',description: 'My description', price:"999", img:"#",url:"#" },
+        { title: 'My title 2',description: 'My description 2', price:"999", img:"#",url:"#" },
+        { title: 'My title 2',description: 'My description 2', price:"999", img:"#",url:"#" }
+        ]},
+      {id: 'xone', title:'xbox one',
+      imgPlatform:"https://cdn.worldvectorlogo.com/logos/xbox-one-3.svg",
+      cards: [
+      { title: 'My title',description: 'My description', price:"999", img:"#",url:"#" },
+      { title: 'My title 2',description: 'My description 2', price:"999", img:"#",url:"#" },
+      { title: 'My title 2',description: 'My description 2', price:"999", img:"#",url:"#" }
+      ]},
+      {id: 'nintendo', title:'nintendo',
+      imgPlatform:"https://vignette3.wikia.nocookie.net/new-fantendo/images/5/5a/Nintendo_Switch_logo.png/revision/latest?cb=20161023110124&path-prefix=es",
+      cards: [
+        { title: 'My title',description: 'My description', price:"999", img:"#",url:"#" },
+        { title: 'My title 2',description: 'My description 2', price:"999", img:"#",url:"#" },
+        { title: 'My title 2',description: 'My description 2', price:"999", img:"#",url:"#" }
+        ]}
+
+    ],
+    
+  }
   render() {
     return (
       <div className="App">
 
         <main>
 
-          <ul id="slide-out" className="side-nav fixed z-depth-2">
 
-            <li className="center no-padding">
-              <div className="grey darken-2 white-text main-icon">
-                <div className="row">
-                  <img width="100" height="100"
-                       src="http://i65.tinypic.com/9kw70h.png"
-                       className="responsive-img logo-style"/>
-                </div>
-              </div>
-            </li>
+          {/* --- SIDEBAR --- */}
 
-            <li id="dash_dashboard"><a className="waves-effect" href="#!"><b>Filtros</b></a></li>
+          <Sidebar />
 
-            <div className="input-field col s12 platform-box">
-              <select>
-                <option value="" disabled selected>Elija consola</option>
-                <option value="1">PS4</option>
-                <option value="2">Xbox ONE</option>
-                <option value="3">Nintendo Switch</option>
-              </select>
-              <label>Plataforma</label>
-            </div>
+          {/* --- BANNER --- */}
 
-
-            <div className="range-">
-            <form action="#">
-              <p className="range-field platform-box" >
-
-                <div className="row">
-                <input type="range" id="test5" min="0" max="200000" step="1000"/>
-
-                </div>
-              </p>
-            </form>
-            </div>
-
-
-            <div className="chip tag-style">
-              Action
-              <i className="close material-icons">close</i>
-            </div>
-            <div className="chip tag-style">
-              Adventure
-              <i className="close material-icons ">close</i>
-            </div>
-            <div className="chip tag-style">
-              Terror
-              <i className="close material-icons ">close</i>
-            </div>
-            <div className="chip tag-style">
-              Sandbox
-              <i className="close material-icons ">close</i>
-            </div>
-            <div className="chip tag-style">
-              FPS
-              <i className="close material-icons">close</i>
-            </div>
-            <div className="chip tag-style">
-              Platform
-              <i className="close material-icons">close</i>
-            </div>
-
-
-
-          </ul>
-
+          
           <header>
             <ul className="dropdown-content" id="user_dropdown">
               <li><a className="grey-text" href="#!">Profile</a></li>
@@ -110,8 +84,19 @@ class App extends Component {
             </nav>
 
           </header>
+          
+          
 
+          {/* --- BODY --- */}
 
+          <main>
+            <div className="col s12">
+              <div className="row wrap">
+                {this.buildPlatforms()}
+              </div>
+            </div>
+          </main>
+          {/*
           <main>
             <div className="col s12">
               <div className="row wrap">
@@ -324,35 +309,45 @@ class App extends Component {
               </div>
             </div>
           </main>
+          */}
 
 
-          <footer className="grey page-footer">
-            <div className="container">
-              <div className="row">
-                <div className="col s12">
-                  <h5 className="white-text">Acerca de Banana Project</h5>
-                  <ul id='credits'>
-                    <li>
-                      Nuestra misión es ayudar a los gamers a escoger el juego deseado al mejor precio!
+          {/* --- FOOTER --- */}
 
-                    </li>
-                    <li>
-                      Nos puedes encontrar en: <a href="https://facebook.com">Facebook</a>,<a href="https://twitter.com">Twitter</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="footer-copyright">
-              <div className="container footer-style">
-              </div>
-            </div>
-          </footer>
+          <Footer />
 
         </main>
 
       </div>
     );
+  }
+  buildPlatforms(){
+    const platformComponents = this.state.platforms.map((platform) => {
+      const { id, title, imgPlatform, cards } = platform;
+      return (
+        
+        <PlatformSection
+          key={id}
+          id={id}
+          title={title}
+          cards= {cards}
+          imgPlatform = {imgPlatform}
+        />
+      );
+    });
+  
+  
+    return platformComponents;
+  }
+  obtainCards(id){
+    
+    const cards = this.state.cards.map((platform) => {
+      const { id, title, } = platform;
+      
+    });
+  
+  
+    return cards;
   }
 }
 
