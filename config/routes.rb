@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  root to: 'home#index'
+
+	mount V1::Root => '/'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount Sidekiq::Web =>'/sidekiq'
   get '/zmartPS4', to: 'scraping#zmart_ps4'

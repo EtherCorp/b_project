@@ -25,3 +25,6 @@
 /.env
 /databasepoblation
 /config/initializers/devise.rb
+/public/packs
+/public/packs-test
+/node_modules
