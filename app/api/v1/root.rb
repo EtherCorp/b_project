@@ -24,6 +24,7 @@ module V1
 		mount ::V1::ProductPrices
 		mount ::V1::Products
 		mount ::V1::Roles
+		mount ::V1::ServerStatusLogs
 		mount ::V1::StoreProducts
 		mount ::V1::Stores
 		mount ::V1::Tags
