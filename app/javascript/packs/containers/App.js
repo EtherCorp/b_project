@@ -4,7 +4,10 @@ import { Router, Route, browserHistory } from 'react-router'
 import PlatformSection from '../components/PlatformSection/PlatformSection';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Footer from '../components/Footer/Footer';
-import CardView from '../components/CardView/CardView'
+import GameView from '../components/GameView/GameView';
+import NavBar from '../components/NavBar/NavBar';
+import AdminSideBar from '../components/AdminSideBar/AdminSideBar';
+
 
 class App extends Component {
 
@@ -42,76 +45,25 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-
 				<main>
 
-					
+          {/* --- BANNER --- */}
+          <NavBar/>
 
 					{/* --- SIDEBAR --- */}
-
-					<Sidebar />
-
-					{/* --- BANNER --- */}
-
-					
-					<header>
-						<ul className="dropdown-content" id="user_dropdown">
-							<li><a className="grey-text" href="#!">Profile</a></li>
-							<li><a className="grey-text" href="#!">Logout</a></li>
-						</ul>
-
-						
-						<nav className="grey" role="navigation">
-							<div className="nav-wrapper">
-								<a data-activates="slide-out" className="button-collapse show-on-large banana-logo" href="#!"><img
-									src=""/></a>
-
-								<ul className="right hide-on-med-and-down">
-									<li>
-
-
-										<li>
-											
-									<div class="input-field col s6">
-										<input placeholder="Buscar aquí" id="search" type="text" class="validate"/>
-									</div>
-									</li>
-									<li>
-
-									<a href="#!"><i class="material-icons">search</i></a>
-									
-										</li>
-										<a className='right dropdown-button' href='' data-activates='user_dropdown'><i
-											className=' material-icons'>account_circle</i></a>
-									</li>
-								</ul>
-
-								<a href="#" data-activates="slide-out" className="button-collapse"><i
-									className="mdi-navigation-menu"></i></a>
-							</div>
-						</nav>
-
-						<nav>
-							<div className="nav-wrapper grey darken-2 breadcrumb-style">
-								<a className="breadcrumb " href="#!">Home</a>
-								<div id="timestamp" className="right timestamp-style"></div>
-							</div>
-						</nav>
-
-					</header>
-					
-					
+					{/*<Sidebar/>*/}
+          <AdminSideBar/>
 
 					{/* --- BODY --- */}
-
 					<main>
 						<div className="col s12">
 							<div className="row wrap">
 								{this.buildPlatforms()}
-								<CardView />
+								<GameView />
 							</div>
 						</div>
 					</main>
+
 					{/*
 					<main>
 						<div className="col s12">
@@ -327,13 +279,10 @@ class App extends Component {
 					</main>
 					*/}
 
-
 					{/* --- FOOTER --- */}
-
 					<Footer />
 
 				</main>
-
 			</div>
 		);
 	}

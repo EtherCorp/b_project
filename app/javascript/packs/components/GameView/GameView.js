@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import './CardView.css';
+import './GameView.css';
 
-class CardView extends Component {
+class GameView extends Component {
     render() {
         return (
             <div className='CardView-container'>
@@ -23,7 +23,7 @@ class CardView extends Component {
                 </div>
                 <div className='Store-compare row'>
                     <div className='table'>
-                        <table class="striped">
+                        <table className="striped">
                             <thead>
                                 <tr>
                                     <th>Tienda</th>
@@ -36,8 +36,8 @@ class CardView extends Component {
                                     <td>Tienda1</td>
                                     <td>$999</td>
                                     <td>
-                                        <button class="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
-                                             <i class="material-icons right">store</i>
+                                        <button className="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
+                                             <i className="material-icons right">store</i>
                                         </button>
                                     </td>
                                 </tr>
@@ -45,8 +45,8 @@ class CardView extends Component {
                                     <td>Tienda2</td>
                                     <td>$999</td>
                                     <td>
-                                    <button class="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
-                                             <i class="material-icons right">store</i>
+                                    <button className="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
+                                             <i className="material-icons right">store</i>
                                         </button>
                                     </td>
                                 </tr>
@@ -54,10 +54,10 @@ class CardView extends Component {
                         </table>
                     </div>
                 </div>
-                <a class="btn-floating btn-large waves-effect waves-light blue darken-3"><i class="material-icons">insert_chart</i></a>
+                <a className="btn-floating btn-large waves-effect waves-light blue darken-3"><i className="material-icons">insert_chart</i></a>
             </div>
 
         );
     }
 }
-export default CardView;
+export default GameView;
