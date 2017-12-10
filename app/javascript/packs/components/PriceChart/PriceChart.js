@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear, scaleTime } from 'd3-scale'
 import { select } from 'd3-selection'
-import { scaleTime } from '../../../../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/d3-scale';
 
 class PriceChart extends Component {
   state = {
@@ -28,9 +27,18 @@ class PriceChart extends Component {
 
   createChart() {
     const node = this.node
-    const dataMax = getMax(this.state.data)
+    const dataMax = this.getMax(this.state.data)
     const yScale = scaleLinear().range([0,dataMax])
-    const xScale = scaleTime().range([0,])
+    const xScale = scaleTime().range([0,this.props.size])
+    const margin = {left: 50, right: 50, top: 25, bottom: 10}
+    const g = select(node).append('g').attr('transform','translate('+margin.left+','+margin.right+')')
+
+  }
+
+  getMax() {
+    console.log(this.state.data.map((store,index,stores)=>{
+      store.prices.reduce((a,b)=>Math.max(a,b))
+    }))
   }
 
   componentWillMount(){
