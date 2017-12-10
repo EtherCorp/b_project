@@ -70,3 +70,5 @@ gem 'turbolinks', '~> 5.0.0'
 gem 'webpacker', '~> 3.0.2'
 # Monitoring
 gem 'net-ping', '~> 2.0.2'
+# Cron tasks
+gem 'whenever', '~> 0.10.0', require: false

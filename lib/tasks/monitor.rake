@@ -3,7 +3,7 @@ require 'monitoring/connection'
 
 namespace :monitor do
   desc 'Prints all System information (Server Monitoring)'
-  task usage: [:environment, :dotenv] do
+  task system: [:environment, :dotenv] do
     disk_used = Usagewatch::Linux.uw_diskused
     disk_used_perc = Usagewatch::Linux.uw_diskused_perc
     cpu_used = Usagewatch::Linux.uw_cpuused
@@ -20,15 +20,18 @@ namespace :monitor do
                           bandwidth_rx: bandrx, 
                           bandwidth_tx: bandtx, 
                           disk_reads: diskioreads, 
-                          disk_writes: diskiowrites)                          
+                          disk_writes: diskiowrites)
+    puts "System Log executed sucessfully at #{Time.now}"
   end
 
-  task test_connection: [:environment, :dotenv] do
+  task connection: [:environment, :dotenv] do
     net_status = Monitoring::Connection.test
     if net_status
-      store = Store.find_by(name: 'Zmart')
-      result = store.check_page
+      stores = Store.all
+      stores.each do |s|
+        result = s.check_page
+        puts 'Site: ' + s.name + ' is down!' unless result
+      end
     end
-    puts result
   end
 end
