@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8044131f-bebe-4c1b-8c5c-513b65f1dce0" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/javascript/packs/components/AdminSideBar/AdminSideBar.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/javascript/packs/components/AdminSideBar/AdminSideBar.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/javascript/packs/components/NavBar/NavBar.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/javascript/packs/components/NavBar/NavBar.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/javascript/packs/components/CardView/CardView.css" afterPath="$PROJECT_DIR$/app/javascript/packs/components/GameView/GameView.css" />
-      <change beforePath="$PROJECT_DIR$/app/javascript/packs/components/CardView/CardView.js" afterPath="$PROJECT_DIR$/app/javascript/packs/components/GameView/GameView.js" />
-      <change beforePath="$PROJECT_DIR$/app/javascript/packs/containers/App.js" afterPath="$PROJECT_DIR$/app/javascript/packs/containers/App.js" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,15 +16,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/javascript/packs/containers/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="57" column="16" lean-forward="true" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
+            <state relative-caret-position="-462">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#517#2104#0" expanded="false" />
-                <element signature="e#2501#9615#0" expanded="false" />
+                <element signature="e#575#2162#0" expanded="false" />
+                <element signature="e#2625#9739#0" expanded="false" />
+                <element signature="e#10225#10270#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminView.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="305">
+              <caret line="69" column="20" lean-forward="true" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#268#1502#0" expanded="false" />
+                <element signature="e#591#870#0" expanded="false" />
+                <element signature="e#886#1165#0" expanded="false" />
+                <element signature="e#1181#1460#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -43,8 +50,8 @@
       <file leaf-file-name="AdminView.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="57">
+              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -82,9 +89,10 @@
       <list>
         <option value="$PROJECT_DIR$/app/views/home/index.html.erb" />
         <option value="$PROJECT_DIR$/app/javascript/packs/containers/App.css" />
-        <option value="$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.css" />
         <option value="$PROJECT_DIR$/app/javascript/packs/components/GameView/GameView.js" />
         <option value="$PROJECT_DIR$/app/javascript/packs/containers/App.js" />
+        <option value="$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.css" />
+        <option value="$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.js" />
       </list>
     </option>
   </component>
@@ -179,42 +187,6 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="javascript" type="462c0819:PsiDirectoryNode" />
               <item name="packs" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="GameView" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="b_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="b_project" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="javascript" type="462c0819:PsiDirectoryNode" />
-              <item name="packs" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="NavBar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="b_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="b_project" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="javascript" type="462c0819:PsiDirectoryNode" />
-              <item name="packs" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="PlatformSection" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="b_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="b_project" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="javascript" type="462c0819:PsiDirectoryNode" />
-              <item name="packs" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Sidebar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="b_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="b_project" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="javascript" type="462c0819:PsiDirectoryNode" />
-              <item name="packs" type="462c0819:PsiDirectoryNode" />
               <item name="containers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -258,15 +230,30 @@
       <updated>1511371662387</updated>
       <workItem from="1511371663564" duration="9133000" />
     </task>
+    <task id="LOCAL-00001" summary="AdminView">
+      <created>1512920111345</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1512920111345</updated>
+    </task>
+    <task id="LOCAL-00002" summary="AdminView">
+      <created>1512928594290</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1512928594291</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11422000" />
+    <option name="totallyTimeSpent" value="19861000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1321" height="746" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19629057" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17387944" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -274,7 +261,7 @@
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21612903" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13387097" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20967741" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -318,6 +305,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="AdminView" />
+    <option name="LAST_COMMIT_MESSAGE" value="AdminView" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -461,8 +452,9 @@
           <caret line="55" column="3" lean-forward="true" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#517#2104#0" expanded="false" />
-            <element signature="e#2501#9615#0" expanded="false" />
+            <element signature="e#575#2162#0" expanded="false" />
+            <element signature="e#2625#9739#0" expanded="false" />
+            <element signature="e#10225#10270#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -473,8 +465,9 @@
           <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#517#2104#0" expanded="false" />
-            <element signature="e#2501#9615#0" expanded="false" />
+            <element signature="e#575#2162#0" expanded="false" />
+            <element signature="e#2625#9739#0" expanded="false" />
+            <element signature="e#10225#10270#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -583,29 +576,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/AdminSideBar/AdminSideBar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="8" column="53" lean-forward="false" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/PlatformSection/PlatformSection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -631,8 +606,9 @@
           <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#517#2104#0" expanded="false" />
-            <element signature="e#2501#9615#0" expanded="false" />
+            <element signature="e#575#2162#0" expanded="false" />
+            <element signature="e#2625#9739#0" expanded="false" />
+            <element signature="e#10225#10270#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -658,8 +634,9 @@
           <caret line="89" column="30" lean-forward="true" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#517#2104#0" expanded="false" />
-            <element signature="e#2501#9615#0" expanded="false" />
+            <element signature="e#575#2162#0" expanded="false" />
+            <element signature="e#2625#9739#0" expanded="false" />
+            <element signature="e#10225#10270#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -687,26 +664,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/GameView/GameView.css">
+    <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/PlatformSection/PlatformSection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="304">
+          <caret line="22" column="39" lean-forward="true" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/GameView/GameView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+        <state relative-caret-position="114">
+          <caret line="6" column="16" lean-forward="true" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -715,12 +684,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/javascript/packs/containers/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="57" column="16" lean-forward="true" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
+        <state relative-caret-position="-462">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#517#2104#0" expanded="false" />
-            <element signature="e#2501#9615#0" expanded="false" />
+            <element signature="e#575#2162#0" expanded="false" />
+            <element signature="e#2625#9739#0" expanded="false" />
+            <element signature="e#10225#10270#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/GameView/GameView.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/javascript/packs/components/AdminView/AdminView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="69" column="20" lean-forward="true" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#268#1502#0" expanded="false" />
+            <element signature="e#591#870#0" expanded="false" />
+            <element signature="e#886#1165#0" expanded="false" />
+            <element signature="e#1181#1460#0" expanded="false" />
           </folding>
         </state>
       </provider>

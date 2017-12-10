@@ -6,8 +6,8 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Footer from '../components/Footer/Footer';
 import GameView from '../components/GameView/GameView';
 import NavBar from '../components/NavBar/NavBar';
+import AdminView from '../components/AdminView/AdminView';
 import AdminSideBar from '../components/AdminSideBar/AdminSideBar';
-
 
 class App extends Component {
 
@@ -58,8 +58,11 @@ class App extends Component {
 					<main>
 						<div className="col s12">
 							<div className="row wrap">
-								{this.buildPlatforms()}
-								<GameView />
+								{/*
+                  {this.buildPlatforms()}
+                  <GameView />
+								*/}
+								<AdminView />
 							</div>
 						</div>
 					</main>
