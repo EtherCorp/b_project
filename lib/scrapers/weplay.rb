@@ -23,8 +23,14 @@ module Scrapers
                 i += 1
                 game_page = get_game_page(name, page)
                 availability = game_page.css('.disponibilidadStock span').text
-                my_hash = {status: "Pending", site: "weplay",url: url_game, console: console ,name: name, price: price, availability: availability}
-                DispatcherWorker.perform_async("weplay", my_hash)
+                if url_game.nil? or console.nil? or name.nil? or price.nil?    
+                    my_hash = {status: "CHANGED INFORMATION", site: "weplay",url: 'nil', console: 'nil' ,name: 'nil', price: 'nil', availability: 'nil'}
+                    DispatcherWorker.perform_async("weplay", my_hash)
+                else
+                    my_hash = {status: "Pending", site: "weplay",url: url_game, console: console ,name: name, price: price, availability: availability}
+                    DispatcherWorker.perform_async("weplay", my_hash)
+                end
+
             end
         end
 

@@ -14,8 +14,14 @@ module Scrapers
                 end
                 game_page = get_game_page(name, page)
                 availability = game_page.css('#ficha_producto_int').css('.txTituloRef')[0].text.split(' ')[1]
-                my_hash = {status: "Pending", site: "zmart",url: url_game, console: console, name: name, price: price, availability: availability}    
-                DispatcherWorker.perform_async("zmart", my_hash)
+                if url_game.nil? or console.nil? or name.nil? or price.nil?    
+                    my_hash = {status: "CHANGED INFORMATION", site: "zmart",url: 'nil', console: 'nil' ,name: 'nil', price: 'nil', availability: 'nil'}
+                    DispatcherWorker.perform_async("zmart", my_hash)
+                else
+                    my_hash = {status: "Pending", site: "zmart",url: url_game, console: console, name: name, price: price, availability: availability}    
+                    DispatcherWorker.perform_async("zmart", my_hash)
+                end
+
             end
         end
         def scrape_Zmart(console)
