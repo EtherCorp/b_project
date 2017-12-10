@@ -1,10 +1,10 @@
 # whenever cron jobs
-set :output, {error: 'log/cron_error.log', standard: 'log/cron.log'}
+set :output, {error: 'log/cron_errors.log', standard: 'log/cron.log'}
 set :environment, 'development'
 env :PATH, ENV['PATH']
 
 # Monitor harware system every 15 minutes
-every 1.minutes do
+every 15.minutes do
   rake 'monitor:system'
 end
 
