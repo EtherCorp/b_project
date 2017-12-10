@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
-
+import { Router, Route, browserHistory } from 'react-router'
 import PlatformSection from '../components/PlatformSection/PlatformSection';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Footer from '../components/Footer/Footer';
+import CardView from '../components/CardView/CardView'
 
 class App extends Component {
 
@@ -44,6 +45,7 @@ class App extends Component {
 
 				<main>
 
+					
 
 					{/* --- SIDEBAR --- */}
 
@@ -106,6 +108,7 @@ class App extends Component {
 						<div className="col s12">
 							<div className="row wrap">
 								{this.buildPlatforms()}
+								<CardView />
 							</div>
 						</div>
 					</main>
