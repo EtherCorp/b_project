@@ -51,8 +51,8 @@ class App extends Component {
           <NavBar/>
 
 					{/* --- SIDEBAR --- */}
-					{/*<Sidebar/>*/}
-          <AdminSideBar/>
+					<Sidebar/>
+         {/* <AdminSideBar/>*/}
 
 					{/* --- BODY --- */}
 					<main>
@@ -61,8 +61,13 @@ class App extends Component {
 								{/*
                   {this.buildPlatforms()}
                   <GameView />
-								*/}
+								
 								<AdminView />
+								*/}
+								{this.buildPlatforms()}
+								<GameView />
+								<AdminView />
+								
 							</div>
 						</div>
 					</main>
@@ -317,6 +322,8 @@ class App extends Component {
 	
 		return cards;
 	}
+
+	
 }
 
 export default App;

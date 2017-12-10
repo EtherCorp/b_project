@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
-
+import StoreCompare from '../StoreCompare/StoreCompare';
 import './GameView.css';
 
 class GameView extends Component {
+
+    state = {
+		games: [
+            {id: '1',
+            imgGame:"nada",
+            title:"Title game", 
+            description: "My description"}
+		]
+	}
     render() {
         return (
+            
+
             <div className='CardView-container'>
                 <div className="row">
                     <div className="col s12 m4 l3">
@@ -20,7 +31,9 @@ class GameView extends Component {
                             <li>Descripcion: </li>
                         </ul>
                     </div>
+
                 </div>
+                {/*
                 <div className='Store-compare row'>
                     <div className='table'>
                         <table className="striped">
@@ -54,10 +67,31 @@ class GameView extends Component {
                         </table>
                     </div>
                 </div>
+                */}
+
+                <StoreCompare />
+                
                 <a className="btn-floating btn-large waves-effect waves-light blue darken-3"><i className="material-icons">insert_chart</i></a>
+                
             </div>
 
+
         );
+    }
+    buildGames() {
+        const gameComponents = this.state.games.map((game) => {
+            const { id, title, imgGame, description } = game;
+            return (
+                <GameView
+                    key={id}
+                    id={id}
+                    title={title}
+                    imgGame={imgGame}
+                    description={description}
+                />
+            );
+        });
+        return gameComponents;
     }
 }
 export default GameView;
