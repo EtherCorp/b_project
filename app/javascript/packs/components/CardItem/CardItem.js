@@ -9,7 +9,6 @@ class CardItem extends Component{
                 <div className="col s12 m4 l3">
                     <div className="card small">
                         <div className="card-image">
-                        {console.log(this.props.img)}
                             <img src={this.props.img}/>
                         </div>
                         <div className="card-content">

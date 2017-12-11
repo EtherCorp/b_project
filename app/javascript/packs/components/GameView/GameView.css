@@ -16,3 +16,7 @@
 .Store-compare{
     align-content: center;
 }
+
+.card.small .card-image, .card.medium .card-image, .card.large .card-image {
+    max-height: 100%;
+}
