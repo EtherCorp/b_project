@@ -9,17 +9,17 @@ import thunk from 'redux-thunk';
 import registerServiceWorker from './registerServiceWorker';
 
 import reducers from './reducers/reducers.js'
+import AppRoutes from './routes';
 
 const store = createStore(reducers,
   applyMiddleware(thunk))
-
 
 //import createLogger from 'redux-logger';
 //const logger = createLogger();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppRoutes />
   </Provider>,
   document.getElementById('root')
 );

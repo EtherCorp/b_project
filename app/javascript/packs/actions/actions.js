@@ -33,18 +33,36 @@ function receiveError(json) {
 };
 
 export function gamesFetchData() {
+	
+		return function(dispatch) {
+			dispatch(requestData());
+			console.log("games fetch data");
+			return GameRetailAxios.get('games/')
+				.then(response => {
+					console.log("SUCCESS");
+					dispatch(fetchGamesSuccess(response.data));
+				},
+				response => {
+					console.log("ERROR "+response.data);
+					dispatch(receiveError(response.data));
+				})
+		}
+	};
 
-	return function(dispatch) {
-		dispatch(requestData());
-		console.log("games fetch data");
-		return GameRetailAxios.get('games/')
-			.then(response => {
-				console.log("SUCCESS");
-				dispatch(fetchGamesSuccess(response.data));
-            },
-            response => {
-				console.log("ERROR "+response.data);
-				dispatch(receiveError(response.data));
-            })
-	}
-};
+export function gameFetchData(id) {
+	
+		return function(dispatch) {
+			dispatch(requestData());
+			console.log("games fetch data");
+			return GameRetailAxios.get('game/'+id)
+				.then(response => {
+					console.log("SUCCESS");
+					dispatch(fetchGameByIdSuccess(response.data));
+				},
+				response => {
+					console.log("ERROR "+response.data);
+					dispatch(receiveError(response.data));
+				})
+		}
+	};
+			

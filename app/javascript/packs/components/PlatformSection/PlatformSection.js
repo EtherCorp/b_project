@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import {Link} from "react-router-dom";
 import CardItem from '../CardItem/CardItem';
 import './PlatformSection.css';
 
@@ -34,15 +34,17 @@ class PlatformSection extends Component{
             const { id, title, img, price, url, description } = card;
            
             return (
-              <CardItem
-                key={id}
-                id={id}
-                title={title}
-                img={img}
-                price={price}
-                url={url}
-                description={description}
-              />
+              <Link to={"/games/"+id} >
+                <CardItem
+                    key={id}
+                    id={id}
+                    title={title}
+                    img={img}
+                    price={price}
+                    url={url}
+                    description={description}
+                />
+              </Link>
             );
           });
         

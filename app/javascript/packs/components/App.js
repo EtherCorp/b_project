@@ -44,6 +44,15 @@ class App extends Component {
 			</div>
 		);
 	}
+	
+	obtainCards(id){
+		
+		const cards = this.state.cards.map((platform) => {
+			const { id, title, } = platform;
+			
+		});
+		return cards;
+	}
 }
 
 export default App;
