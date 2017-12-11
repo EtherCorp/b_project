@@ -51,18 +51,18 @@ class App extends Component {
           <NavBar/>
 
 					{/* --- SIDEBAR --- */}
-					{/*<Sidebar/>*/}
-          <AdminSideBar/>
+          			<Sidebar/>
+					{/*<AdminSidebar/>*/}
 
 					{/* --- BODY --- */}
 					<main>
 						<div className="col s12">
 							<div className="row wrap">
-								{/*
+								
                   {this.buildPlatforms()}
-                  <GameView />
-								*/}
-								<AdminView />
+                  {/*<GameView /> */}
+								
+								{/*<AdminView />*/}
 							</div>
 						</div>
 					</main>

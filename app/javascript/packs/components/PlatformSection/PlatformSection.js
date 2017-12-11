@@ -20,7 +20,7 @@ class PlatformSection extends Component{
 
                     <div className='PlatformSection-CardItems'>
                     <div className="row">
-                    {this.buildCards()}
+                    {this.buildGames()}
                     </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@ class PlatformSection extends Component{
             
         );
     }
-    buildCards() {
+    buildGames() {
         const cardsComponents = this.props.cards.map((card) => {
             const { id, title, img, price, url, description } = card;
             return (

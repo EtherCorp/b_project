@@ -1,0 +1,6 @@
+export const REQ_DATA = 'REQ_DATA';
+export const RECV_ERROR = 'RECV_ERROR'
+export const RECV_DATA = 'RECV_DATA'
+
+export const FETCH_GAMES_SUCCESS = 'FETCH_GAMES_SUCCESS';
+export const FETCH_GAME_BY_ID_SUCCESS = 'FETCH_GAME_BY_ID_SUCCESS';
