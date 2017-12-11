@@ -1,76 +1,58 @@
 import React, {Component} from 'react';
 
 import './Sidebar.css';
+import {Button, Icon, Input} from "react-materialize";
 
-class Sidebar extends Component{
-    render(){
-        return(
-            <ul id="slide-out" className="side-nav fixed z-depth-2">
+class Sidebar extends Component {
+  render() {
+    return (
+       <ul id="slide-out" className="side-nav fixed z-depth-2">
 
-                        <li className="center no-padding">
-                        <div className="grey darken-2 white-text main-icon">
-                            <div className="row">
-                            <img width="100" height="100"
-                                src="http://i65.tinypic.com/9kw70h.png"
-                                className="responsive-img logo-style"/>
-                            </div>
-                        </div>
-                        </li>
+         <li className="center no-padding">
+           <div className="grey darken-2 white-text main-icon">
+             <div className="row">
+               <img width="100" height="100"
+                    src="http://i65.tinypic.com/9kw70h.png"
+                    className="responsive-img logo-style"/>
+             </div>
+           </div>
+         </li>
 
-                        <li id="dash_dashboard"><a className="waves-effect" href="#!"><b>Filtros</b></a></li>
-
-                        <div className="input-field col s12 platform-box">
-                        <select>
-                            <option value="" disabled selected>Elija consola</option>
-                            <option value="1">PS4</option>
-                            <option value="2">Xbox ONE</option>
-                            <option value="3">Nintendo Switch</option>
-                        </select>
-                        <label>Plataforma</label>
-                        </div>
+         <li id="dash_dashboard">
+           <b>Filtros</b>
+         </li>
 
 
-                        <div className="range-">
-                        <form action="#">
-                        <p className="range-field platform-box" >
-
-                            <div className="row">
-                            <input type="range" id="test5" min="0" max="200000" step="1000"/>
-
-                            </div>
-                        </p>
-                        </form>
-                        </div>
+           <Input s={12} type='select' label='Plataforma'  defaultValue='0' className="side-item">
+             <option value="0"  selected>Elija consola</option>
+             <option value="1">PS4</option>
+             <option value="2">Xbox ONE</option>
+             <option value="3">Nintendo Switch</option>
+           </Input>
 
 
-                        <div className="chip tag-style">
-                        Action
-                        <i className="close material-icons">close</i>
-                        </div>
-                        <div className="chip tag-style">
-                        Adventure
-                        <i className="close material-icons ">close</i>
-                        </div>
-                        <div className="chip tag-style">
-                        Terror
-                        <i className="close material-icons ">close</i>
-                        </div>
-                        <div className="chip tag-style">
-                        Sandbox
-                        <i className="close material-icons ">close</i>
-                        </div>
-                        <div className="chip tag-style">
-                        FPS
-                        <i className="close material-icons">close</i>
-                        </div>
-                        <div className="chip tag-style">
-                        Platform
-                        <i className="close material-icons">close</i>
-                        </div>
-            </ul>
-        );
-    }
- 
+         <form action="#">
+           <p class="range-field side-item">
+             <p>Precio Máximo</p>
+             <input type="range" id="test5" min="0" max="80000" step="1000"/>
+           </p>
+         </form>
+
+         <Input s={12} type='select' label='Géneros'  defaultValue='0' className="side-item">
+           <option value="0" selected>Seleccione Género</option>
+           <option value="1">Action</option>
+           <option value="2">Adventure</option>
+           <option value="3">Terror</option>
+           <option value="4">Sandbox</option>
+           <option value="5">Platformer</option>
+           <option value="6">FPS</option>
+         </Input>
+
+         <Button waves='light'>Filtrar!<Icon left>filter_list</Icon></Button>
+       </ul>
+    );
+  }
+
 }
 
 export default Sidebar;
