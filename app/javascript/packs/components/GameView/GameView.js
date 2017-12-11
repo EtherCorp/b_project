@@ -12,8 +12,6 @@ class GameView extends Component {
     }
 
     render() {
-        console.log(this.props.match.params.id)
-        console.log(this.props)
 
         return (
             <div className='CardView-container'>
@@ -44,23 +42,16 @@ class GameView extends Component {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Tienda1</td>
-                                    <td>$999</td>
-                                    <td>
-                                        <button className="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
-                                             <i className="material-icons right">store</i>
-                                        </button>
-                                    </td>
+                                <td>Weplay</td>
+                                <td>$29990</td>
+                                <td>
+                                    <button className="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
+                                        <i className="material-icons right">store</i>
+                                    </button>
+                                </td>
+
                                 </tr>
-                                <tr>
-                                    <td>Tienda2</td>
-                                    <td>$999</td>
-                                    <td>
-                                        <button className="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
-                                             <i className="material-icons right">store</i>
-                                        </button>
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -70,5 +61,17 @@ class GameView extends Component {
 
         );
     }
+/*
+    buildStoress(){
+
+		const storeComponents = this.props.game.stores.map((store) => {
+            const { title, price } = store;
+            return (
+			);
+		});
+	
+	
+		return storeComponents;
+    }*/
 }
 export default GameView;
