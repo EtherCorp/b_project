@@ -5,6 +5,7 @@ import { line, curveBasis } from 'd3-shape'
 import { axisBottom, axisLeft } from 'd3-axis'
 import { timeParse } from 'd3-time-format'
 import { extent } from 'd3-array'
+import './PriceChart.css'
 
 class PriceChart extends Component {
   state = {
@@ -33,27 +34,24 @@ class PriceChart extends Component {
     const g = select(node).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
     const parseTime = timeParse("%Y-%m-%d")
     const x = scaleTime().range([0, width])
-    const y = scaleLinear().range([height,0])
+    const y = scaleLinear().range([height, 0])
     const z = scaleOrdinal().range(schemeCategory20)
-    const line_ = line().curve(curveBasis).x((d) => x(d.date)).y((d) => y(d.price))
+    const line_ = line().x((d) => x(d.date)).y((d) => y(d.price))
     this.state.data.forEach(store => {
       store.prices.forEach(price => {
-        price.date = timeParse(price.date)
+        price.date = parseTime(price.date)
         price.price = price.price
       })
     })
     x.domain([parseTime("2017-01-01"),parseTime("2017-12-10")])
     y.domain([0, dataMax])
+    z.domain(this.state.data.map((store,index,stores)=>store.store))
     g.append("g").attr("class", "axis axis--x").attr("transform", "translate(0," + height + ")").call(axisBottom(x))
     g.append("g").attr("class", "axis axis--y").call(axisLeft(y)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "0.71em").attr("fill", "#000").text("Precio, CLP")
 
-    this.state.data.forEach(store => {
-      g.append("g").attr("class", "store").append("path").datum(store).attr("class", "line").attr("d", function (d) { return line_(d.prices) }).style("stroke", function (d) { return d.store })
-    });
-
     const store = g.selectAll(".store").data(this.state.data).enter().append("g").attr("class","store")
-    store.append("path").datum(function(d){return {id: d.store, prices: d.prices}}).attr("class", "line").attr("d", function(d){return line_(d.prices)}).style("stroke",function(d){return d.id})
-    store.append("text").datum(function(d){return {id:d.store, value:d.prices[d.prices.length -1]};}).attr("transform",function(d){return "translate("+d.value.date+","+y(d.value.price)+")";}).attr("x",3).attr("dy","0.35em").style("font","12px sans-serif").text(function(d){return d.id;})
+    store.append("path").datum((d)=> ({id: d.store, prices: d.prices})).attr("class", "line").attr("d", (d)=>line_(d.prices)).style("stroke",(d)=>d.id)
+    store.append("text").datum((d)=> ({id:d.store, value:d.prices[d.prices.length -1]})).attr("transform",(d)=>"translate("+x(d.value.date)+","+y(d.value.price)+")").attr("dy","0.35em").style("font","12px sans-serif").text((d)=>d.id)
 
   }
 
