@@ -13,11 +13,9 @@ module Scrapers
           end
           price = game.css('#datos #precio')[0].css('strong')[0].text
           availability = 'Preguntar disponibilidad en tienda'
-          my_hash = {status: "Pending", site: "sniper",url: url_game, console: console, name: name, price: price, availability: availability}
-          DispatcherWorker.perform_async("sniper", my_hash)
+          my_hash = {status: "Pending", site: "Sniper",url: url_game, console: console, name: name, price: price, availability: availability}
+          DispatcherWorker.perform_async(my_hash)
           #puts my_hash
-          #scraper = Object.const_get('Drivers::DriverSniper').new
-          #scraper.drive(my_hash)
         end    
     end
     def scrape_Sniper(console)

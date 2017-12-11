@@ -29,19 +29,20 @@ class ActivityLogger
     @@connection['zmart']
   end
 
-  def save_scrap_sniper(params)
+  def save_scrap_Sniper(params)
     if sniper.find(params).count() == 0
       sniper.insert_one(params)
     end
+    params
   end
 
-  def save_scrap_weplay(params)
+  def save_scrap_Weplay(params)
     if weplay.find(params).count() == 0 
       weplay.insert_one(params)
     end
   end
 
-  def save_scrap_zmart(params)
+  def save_scrap_Zmart(params)
     if zmart.find(params).count() == 0
       zmart.insert_one(params)
     end
