@@ -8,6 +8,7 @@ import GameView from '../components/GameView/GameView';
 import NavBar from '../components/NavBar/NavBar';
 import AdminView from '../components/AdminView/AdminView';
 import AdminSideBar from '../components/AdminSideBar/AdminSideBar';
+import PriceChart from '../components/PriceChart/PriceChart'
 
 class App extends Component {
 
@@ -284,7 +285,8 @@ class App extends Component {
 
 					{/* --- FOOTER --- */}
 					<Footer />
-
+					{/*<PriceChart size={500} />  UNCOMMENT THIS FOR TESTING */}
+					
 				</main>
 			</div>
 		);
