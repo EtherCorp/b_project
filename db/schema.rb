@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 20171122173436) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "api_statuses", force: :cascade do |t|
+    t.bigint "game_api_id"
+    t.string "status"
+    t.integer "games"
+    t.integer "companies"
+    t.integer "genres"
+    t.integer "platforms"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_api_id"], name: "index_api_statuses_on_game_api_id"
+  end
+
   create_table "clasifications", force: :cascade do |t|
     t.bigint "normative_id"
     t.string "code"
@@ -41,6 +53,7 @@ ActiveRecord::Schema.define(version: 20171122173436) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "external_id"
   end
 
   create_table "company_roles", force: :cascade do |t|
@@ -109,6 +122,13 @@ ActiveRecord::Schema.define(version: 20171122173436) do
     t.index ["game_id"], name: "index_game_alt_names_on_game_id"
   end
 
+  create_table "game_apis", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "game_asociations", force: :cascade do |t|
     t.bigint "game_id"
     t.bigint "product_id"
@@ -125,6 +145,7 @@ ActiveRecord::Schema.define(version: 20171122173436) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "external_id"
   end
 
   create_table "games_genres", id: false, force: :cascade do |t|
@@ -136,6 +157,17 @@ ActiveRecord::Schema.define(version: 20171122173436) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "external_id"
+  end
+
+  create_table "igdb_keys", force: :cascade do |t|
+    t.string "key"
+    t.datetime "last_used"
+    t.boolean "is_active"
+    t.string "owner_email"
+    t.string "key_class"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -172,6 +204,7 @@ ActiveRecord::Schema.define(version: 20171122173436) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "external_id"
   end
 
   create_table "product_prices", force: :cascade do |t|
@@ -291,4 +324,5 @@ ActiveRecord::Schema.define(version: 20171122173436) do
     t.index ["country_id"], name: "index_users_on_country_id"
   end
 
+  add_foreign_key "api_statuses", "game_apis"
 end
