@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import './GameView.css';
+import PriceChart from '../PriceChart/PriceChart';
+import { Button, Card, Row, Col, Input, Modal, Icon } from 'react-materialize'
 
 class GameView extends Component {
     render() {
@@ -45,7 +47,7 @@ class GameView extends Component {
                                     <td>Tienda2</td>
                                     <td>$999</td>
                                     <td>
-                                    <button className="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
+                                        <button className="btn waves-effect waves-light" type="submit" name="action">Ir a tienda
                                              <i className="material-icons right">store</i>
                                         </button>
                                     </td>
@@ -54,7 +56,7 @@ class GameView extends Component {
                         </table>
                     </div>
                 </div>
-                <a className="btn-floating btn-large waves-effect waves-light blue darken-3"><i className="material-icons">insert_chart</i></a>
+                <PriceChart/>               
             </div>
 
         );

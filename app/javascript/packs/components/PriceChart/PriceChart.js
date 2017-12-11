@@ -73,28 +73,28 @@ class PriceChart extends Component {
       {
         store: 'sniper',
         prices: [
-          { date: '2017-01-01', price: 300 },
-          { date: '2017-08-01', price: 120 },
-          { date: '2017-09-01', price: 290 },
-          { date: '2017-10-01', price: 300 },
+          { date: '2017-01-01', price: 900 },
+          { date: '2017-08-01', price: 500 },
+          { date: '2017-09-01', price: 480 },
+          { date: '2017-10-01', price: 450 },
         ]
       },
         {
           store: 'weplay',
           prices: [
-            { date: '2017-01-01', price: 300 },
-            { date: '2017-07-20', price: 180 },
+            { date: '2017-01-01', price: 999 },
+            { date: '2017-07-20', price: 650 },
             { date: '2017-08-15', price: 450 },
-            { date: '2017-10-01', price: 400 },
+            { date: '2017-10-01', price: 430 },
           ]
         },
         {
           store: 'zmart',
           prices: [
-            { date: '2017-01-01', price: 290 },
-            { date: '2017-07-30', price: 190 },
-            { date: '2017-09-01', price: 350 },
-            { date: '2017-10-01', price: 350 },
+            { date: '2017-01-01', price: 950 },
+            { date: '2017-07-30', price: 700 },
+            { date: '2017-09-01', price: 499 },
+            { date: '2017-10-01', price: 400 },
           ]
         }
       ]
