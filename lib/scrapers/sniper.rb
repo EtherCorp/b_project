@@ -13,8 +13,15 @@ module Scrapers
           end
           price = game.css('#datos #precio')[0].css('strong')[0].text
           availability = 'Preguntar disponibilidad en tienda'
-          my_hash = {status: "Pending", site: "Sniper",url: url_game, console: console, name: name, price: price, availability: availability}
-          DispatcherWorker.perform_async(my_hash)
+
+          if url_game.nil? or console.nil? or name.nil? or price.nil?    
+            my_hash = {status: "CHANGED INFORMATION", site: "Sniper",url: 'nil', console: 'nil' ,name: 'nil', price: 'nil', availability: 'nil'}
+            DispatcherWorker.perform_async(my_hash)
+          else
+            my_hash = {status: "Pending", site: "Sniper",url: url_game, console: console, name: name, price: price, availability: availability}
+            DispatcherWorker.perform_async(my_hash)
+          end
+
           #puts my_hash
         end    
     end

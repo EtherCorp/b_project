@@ -1,5 +1,5 @@
 class StoreProduct < ApplicationRecord
-  has_many :product_prices
+has_many :product_prices
   belongs_to :product
   belongs_to :store
 
@@ -7,16 +7,22 @@ class StoreProduct < ApplicationRecord
   def self.create_with_params(params)
     store = Store.find_by(name: params[:site])
     products = Product.find_by(name: params[:name])
-    a = StoreProduct.new
-    a.store_id = store.id
-    a.product_id = products.id
-    a.url =params[:url]
-    a.last_successful_scrap_at = DateTime.now
-    a.last_scrapping_attempt_at = DateTime.now
-    a.stock = false
-    a.enabled = true
-    a.save
-    a
+    if products.nil? || store.nil?
+      puts "Juego no esta en la BD"
+      nil
+    else
+      a = StoreProduct.new
+      a.store_id = store.id
+      a.product_id = products.id
+      a.url =params[:url]
+      a.last_successful_scrap_at = DateTime.now
+      a.last_scrapping_attempt_at = DateTime.now
+      a.stock = true
+      a.enabled = true
+      a.save
+      puts "guardado"
+      a
+    end
   end
 
   def self.update_with_params(params)
