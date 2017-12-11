@@ -32,14 +32,18 @@ function receiveError(json) {
 	}
 };
 
-export function gamesFetchData(url) {
+export function gamesFetchData() {
+
 	return function(dispatch) {
 		dispatch(requestData());
+		console.log("games fetch data");
 		return GameRetailAxios.get('games/')
 			.then(response => {
+				console.log("SUCCESS");
 				dispatch(fetchGamesSuccess(response.data));
             },
             response => {
+				console.log("ERROR "+response.data);
 				dispatch(receiveError(response.data));
             })
 	}

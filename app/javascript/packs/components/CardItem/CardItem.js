@@ -10,6 +10,7 @@ class CardItem extends Component{
                     <div className="card small">
                         <a href={this.props.url}>
                             <div className="card-image">
+                            {console.log(this.props.img)}
                                 <img src={this.props.img}/>
                             </div>
                             <div className="card-content">

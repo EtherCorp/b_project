@@ -12,10 +12,11 @@ class PlatformSection extends Component{
                     {/*<div className = 'PlatformSection-title'>
                     {this.props.title}
                     </div>*/}
+                    {console.log(this.props.cards)}
 
                     <div className="row">
                         <img height="40px"
-                        src={this.props.imgPlatform}/>
+                        src={this.props.img}/>
                     </div>
 
                     <div className='PlatformSection-CardItems'>
@@ -31,6 +32,7 @@ class PlatformSection extends Component{
     buildGames() {
         const cardsComponents = this.props.cards.map((card) => {
             const { id, title, img, price, url, description } = card;
+           
             return (
               <CardItem
                 key={id}

@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import PlatformList from '../components/PlatformList/PlatformList'
 
 const mapStateToProps = (state) => ({
-  platforms: state.platforms
+  platforms: state.platforms,
+  isFetching: state.isFetching
 })
 /*
 const mapDispatchToProps = (dispatch, ownProps) => ({
