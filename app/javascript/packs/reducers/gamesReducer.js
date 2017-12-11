@@ -27,12 +27,21 @@ function buildGameinit(){
 }
 
 export const gamesReducer = (state = [], action) => {
-    switch (action.type) {
-      case 'FETCH_GAMES_SUCCESS':
-        return action.data;
-      default:
-        return state;
-    }
+	switch (action.type) {
+		case 'FETCH_GAMES_SUCCESS':
+			return action.data;
+		default:
+			return state;
+	}
+}
+
+export const gameReducer = (state = [], action) => {
+	switch (action.type) {
+		case 'FETCH_GAME_BY_ID_SUCCESS':
+			return action.data;
+		default:
+			return state;
+	}
 }
 
 export const isFetchingGames = (state = false, action) => {

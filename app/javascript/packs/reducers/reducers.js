@@ -1,10 +1,11 @@
 //import characters from './reducers/characters.js'
 import { combineReducers } from 'redux';
-import {gamesReducer,isFetchingGames} from './gamesReducer';
+import {gamesReducer,gameReducer,isFetchingGames} from './gamesReducer';
 
 const rootReducer = combineReducers({
 	platforms:gamesReducer,
-	isFetching:isFetchingGames
+	isFetching:isFetchingGames,
+	game:gameReducer
 	//characters: characters
 });
 

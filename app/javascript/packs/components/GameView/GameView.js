@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
 
 import './GameView.css';
-import PriceChart from '../PriceChart/PriceChart';
+import {gameFetchData} from '../../actions/actions'
 import { Button, Card, Row, Col, Input, Modal, Icon } from 'react-materialize'
+import PriceChart from '../PriceChart/PriceChart';
 
 class GameView extends Component {
+
+    componentDidMount(){
+        this.props.dispatch(gameFetchData(this.props.match.params.id))
+    }
+
     render() {
+        console.log(this.props.match.params.id)
+        console.log(this.props)
+
         return (
             <div className='CardView-container'>
                 <div className="row">
                     <div className="col s12 m4 l3">
                         <div className="card small ">
                             <div className="card-image">
-                                <img src={this.props.img} />
+                                <img src={this.props.game.img} />
                             </div>
                         </div>
                     </div>
                     <div className='Card-description'>
                         <ul>
-                            <li>Titulo: </li>
-                            <li>Descripcion: </li>
+                            <li>Titulo:{this.props.game.title} </li>
+                            <li>Descripcion: {this.props.game.description} </li>
                         </ul>
                     </div>
                 </div>

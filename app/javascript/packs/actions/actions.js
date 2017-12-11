@@ -57,6 +57,7 @@ export function gameFetchData(id) {
 			return GameRetailAxios.get('game/'+id)
 				.then(response => {
 					console.log("SUCCESS");
+					console.log(response.data);
 					dispatch(fetchGameByIdSuccess(response.data));
 				},
 				response => {
