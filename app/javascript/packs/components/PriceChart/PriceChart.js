@@ -48,7 +48,7 @@ class PriceChart extends Component {
     g.append("g").attr("class", "axis axis--y").call(axisLeft(y)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "0.71em").attr("fill", "#000").text("Precio, CLP")
 
     this.state.data.forEach(store => {
-      g.append("g").attr("class","store")
+      g.append("g").attr("class", "store").append("path").datum(store).attr("class", "line").attr("d", function (d) { return line_(d.prices) }).style("stroke", function (d) { return d.store })
     });
 
     const store = g.selectAll(".store").data(this.state.data).enter().append("g").attr("class","store")

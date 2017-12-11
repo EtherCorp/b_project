@@ -8,6 +8,7 @@ import GameView from '../components/GameView/GameView';
 import NavBar from '../components/NavBar/NavBar';
 import AdminView from '../components/AdminView/AdminView';
 import AdminSideBar from '../components/AdminSideBar/AdminSideBar';
+import PriceChart from '../components/PriceChart/PriceChart'
 
 import PlatformListContainer from '../containers/platform-list-container'
 
@@ -70,6 +71,7 @@ class App extends Component {
 					</main>
 
 					<Footer />
+					<PriceChart />					
 
 				</main>
 			</div>
